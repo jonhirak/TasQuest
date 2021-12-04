@@ -6,9 +6,9 @@ import NewQuest from '../screens/newQuest';
 import Quest from '../screens/quest';
 
 const screens = {
-  Home: {
-    screen: Home
-  },
+  // Home: {
+  //   screen: Home
+  // },
   StartQuest: {
     screen: StartQuest
   },

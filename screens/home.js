@@ -9,7 +9,7 @@ const Home = ({ navigation }) => {
 
   return (
     <View>
-      <Text>Home Test</Text>
+      <Text>Home</Text>
       <Button title='Login' onPress={pressHandler}/>
     </View>
   )
