@@ -1,20 +1,21 @@
 import React, { useState } from 'react';
 import { View, Animated, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
-const TaskList = ({ task, completeTaskHandler }) => {
+const Task = ({ task, completeTaskHandler }) => {
 
 
 
   return (
     <View style = {styles.list}>
       <Text style = {styles.taskTitle}>{task.title}</Text>
-      <TouchableOpacity onPress = {completeTaskHandler.bind(null, task.size)}>
-        <View style = {styles.complete}>
+      <Text style = {styles.taskSize}>{task.size}</Text>
+      <View style = {styles.complete}>
+        <TouchableOpacity onPress = {completeTaskHandler.bind(null, task)}>
           <Text>
             Complete
           </Text>
-        </View>
-      </TouchableOpacity>
+        </TouchableOpacity>
+      </View>
     </View>
   )
 };
@@ -31,4 +32,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default TaskList;
+export default Task;

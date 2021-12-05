@@ -6,7 +6,8 @@ const StartQuest = ({ navigation }) => {
   const [ quests, setQuests ] = useState([
     {
       id: 1,
-      title: 'quest1', boss:'d8uw910-2308db5c-22ae-44bd-b19f-600fc38dbf9e.gif',
+      title: 'quest1',
+      boss:`slime`,
       health: 2000,
       currentHealth: 450,
       members: []
@@ -14,16 +15,16 @@ const StartQuest = ({ navigation }) => {
     {
       id: 2,
       title: 'quest2',
-      boss:'d8uw910-2308db5c-22ae-44bd-b19f-600fc38dbf9e.gif',
+      boss:'dragon',
       health: 3500,
       currentHealth: 50,
       members: []},
     {
       id: 3,
       title: 'quest3',
-      boss:'d8uw910-2308db5c-22ae-44bd-b19f-600fc38dbf9e.gif',
-      health: 11000,
-      currentHealth: 9990,
+      boss:'alien',
+      health: 7000,
+      currentHealth: 6400,
       members: []
     }
   ]);
@@ -60,6 +61,7 @@ const StartQuest = ({ navigation }) => {
       <Text>Start Quest</Text>
       <FlatList
         data = {quests}
+        style = {styles.quests}
         renderItem={( {item} ) =>
         <TouchableOpacity style = {styles.quest} onPress={pressQuestHandler.bind(null, item)}>
         <View style = {styles.questView}>
@@ -68,13 +70,33 @@ const StartQuest = ({ navigation }) => {
       </TouchableOpacity>
       }
       />
-      <Button title='New Quest' onPress={pressNewQuestHandler}/>
+      <View style = {styles.newQuestButton}>
+        <TouchableOpacity onPress = {pressNewQuestHandler}>
+          <Text>
+            New Quest
+          </Text>
+        </TouchableOpacity>
+      </View>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
-
+  quests: {
+    margin: 30
+  },
+  quest: {
+    borderWidth: 1,
+    marginLeft: 30,
+    marginRight: 30,
+    alignItems: 'center'
+  },
+  newQuestButton: {
+    borderWidth: 1,
+    backgroundColor: 'ivory',
+    width: '20%',
+    alignSelf: 'center'
+  }
 })
 
 export default StartQuest;

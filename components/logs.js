@@ -5,6 +5,7 @@ import Log from './log';
 const Logs = ({ logs }) => {
   return (
     <View style = {styles.logs}>
+      {/* Add Task button here */}
       <Text style = {styles.logsHeader}>Log</Text>
       {logs.map( item => {
         return <Log log = {item} key = {item.id} />
