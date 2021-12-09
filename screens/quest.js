@@ -4,27 +4,15 @@ import HealthBar from '../components/healthBar';
 import Tasks from '../components/tasks'
 import Logs from '../components/logs';
 import Players from '../components/players';
+import LevelBar from '../components/levelBar';
+import AddTaskModal from '../components/addTaskModal'
 import FastImage from 'react-native-fast-image';
-import { gifs, images } from '../images.js';
+import { gifs, images } from '../images';
+import { randomId } from '../randomId'
+import { conversion } from '../conversion'
 
 const Quest = ({ navigation }) => {
-  const [ tasks, setTasks ] = useState([
-    {
-      id: 1,
-      title: 'task1',
-      size: 'S'
-    },
-    {
-      id: 2,
-      title: 'task2',
-      size: 'XL',
-    },
-    {
-      id: 3,
-      title: 'task3',
-      size: 'M',
-    }
-  ]);
+  const [ tasks, setTasks ] = useState([]);
   const [ logs, setLogs ] = useState([
     {
       id: 3,
@@ -66,20 +54,11 @@ const Quest = ({ navigation }) => {
     }
   ])
   const [ modalOpen, setModalOpen ] = useState(false);
+  const [ taskModalOpen, setTaskModalOpen ] = useState(false);
   const [ selectedPlayer, setSelectedPlayer ] = useState({});
   const [ quest, setQuest ] = useState({});
 
-  const randomId = () => {
-    return Math.floor(Math.random() * 99999);
-  }
-
   const completeTaskHandler = (task) => {
-    const conversion = {
-      S: 10,
-      M: 25,
-      L: 50,
-      XL: 100,
-    }
 
     function getFormattedDate(){
       var d = new Date();
@@ -118,10 +97,30 @@ const Quest = ({ navigation }) => {
     setModalOpen(true);
   };
 
+  const createTaskHandler = () => {
+    setTaskModalOpen(true);
+  };
+
+  const closeModalHandler = (taskForm, value) => {
+    taskForm.size = value;
+    taskForm.id = randomId();
+
+    let taskFormCopy = {...taskForm};
+
+    tasks.push(taskFormCopy);
+
+    setTasks(tasks);
+
+    setTaskModalOpen(false);
+  };
+
   useEffect(() => {
     const quest = navigation.getParam('item');
     console.log(quest)
+    console.log('PLAYERS ' + quest.players)
     setQuest(quest)
+    setPlayers(quest.players)
+    setTasks(quest.tasks)
   }, []);
 
   const healthPercent = quest.currentHealth/quest.health * 100;
@@ -131,23 +130,38 @@ const Quest = ({ navigation }) => {
 
       <Modal visible={modalOpen} animationType='slide'>
         <View style = {styles.modalContent}>
+          <Text style = {styles.name} >{selectedPlayer.name}</Text>
           <Image style = {styles.portrait} source = {{uri: `/Users/jonhi1/Desktop/MVP/mvp/images/portraits/${selectedPlayer.photo}`}} />
-        <Text style = {styles.name} >{selectedPlayer.name}</Text>
+          <Text style = {styles.level} >Level {selectedPlayer.level}</Text>
+          <View style = {styles.expBar}>
+            <LevelBar currentHealth = {2025} health = {2900} height = {15} healthPercent = {70}/>
+          </View>
           <Button onPress={()=> setModalOpen(false)} title='Close' style={styles.Close}/>
         </View>
       </Modal>
 
+      <AddTaskModal modalOpen = {taskModalOpen} closeModalHandler = {closeModalHandler}/>
+
       <View style = {styles.screen}>
-        <View style = {styles.healthBar}>
-          <HealthBar currentHealth = {quest.currentHealth} health = {quest.health} height = {15} healthPercent = {healthPercent} />
-        </View>
-        <Image
-          style = {styles.bossSprite}
-          source = {gifs[quest.boss]}
-        />
-        <Players players = { players } pressPlayerIconHandler={pressPlayerIconHandler}/>
+        <ImageBackground
+          style = {styles.stage}
+          source = {images[quest.stage]}
+        >
+          <View style = {styles.healthBar}>
+            <HealthBar currentHealth = {quest.currentHealth} health = {quest.health} height = {15} healthPercent = {healthPercent} />
+          </View>
+          <Image
+            style = {styles.bossSprite}
+            source = {gifs[quest.boss]}
+          />
+          <View>
+            <View style = {styles.playersBackground}>
+            </View>
+            <Players players = { players } pressPlayerIconHandler={pressPlayerIconHandler}/>
+          </View>
+        </ImageBackground>
       </View>
-      <Tasks tasks = {tasks} completeTaskHandler = {completeTaskHandler}/>
+      <Tasks tasks = {tasks} completeTaskHandler = {completeTaskHandler} createTaskHandler={createTaskHandler}/>
       <Logs logs = {logs}/>
     </ScrollView>
   )
@@ -164,7 +178,10 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     borderWidth: 5,
     width: '96%',
-    maxHeight: '40%'
+    maxHeight: '42%',
+  },
+  stage: {
+    maxHeight: '100%'
   },
   bossSprite: {
     alignSelf: 'center',
@@ -175,6 +192,21 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     paddingTop: '2%',
     width: 200,
+    backgroundColor: 'white',
+    opacity: 0.7,
+    borderRadius: 10,
+    margin: 5,
+    padding: 5
+  },
+  playersBackground: {
+    backgroundColor: 'white',
+    opacity: 0.7,
+    borderRadius: 10,
+    // borderWidth: 1,
+    position: 'absolute',
+    height: '100%',
+    width: '70%',
+    alignSelf: 'center'
   },
   tasksHeader: {
     fontFamily: 'Menlo',
@@ -198,6 +230,16 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: 'bold',
     alignSelf: 'center'
+  },
+  level: {
+    fontFamily: 'Menlo',
+    fontWeight: 'bold',
+    fontSize: 25,
+    alignSelf: 'center'
+  },
+  expBar: {
+    alignSelf: 'center',
+    width: '80%',
   }
 })
 

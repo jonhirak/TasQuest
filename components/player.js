@@ -17,10 +17,11 @@ const styles = StyleSheet.create({
   portrait: {
     width: 60,
     height: 60,
-    borderRadius: 100/2,
+    borderRadius: 10,
     marginTop: 2,
     marginLeft: 10,
     marginRight: 10,
+    borderWidth: 1
   },
   name: {
     fontFamily: 'Menlo',
