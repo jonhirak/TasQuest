@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, Button, TextInput, StyleSheet, Image, TouchableOpacity, Pressable, Dimensions } from 'react-native';
+import { View, Text, Button, TextInput, StyleSheet, Image, TouchableOpacity, Pressable, Dimensions, ImageBackground, ScrollView } from 'react-native';
 import Tasks from '../components/tasks.js';
 import AddTaskModal from '../components/addTaskModal.js';
 import DropDownPicker from 'react-native-dropdown-picker';
@@ -129,7 +129,7 @@ const NewQuest = ({ navigation }) => {
     setModalOpen(true);
   };
 
-  const closeModalHandler = (taskForm, value) => {
+  const addTaskHandler = (taskForm, value) => {
     taskForm.size = value;
     taskForm.id = randomId();
 
@@ -139,6 +139,10 @@ const NewQuest = ({ navigation }) => {
 
     setQuestForm(questForm);
 
+    setModalOpen(false);
+  };
+
+  const closeTaskModalHandler = () => {
     setModalOpen(false);
   };
 
@@ -171,91 +175,104 @@ const NewQuest = ({ navigation }) => {
   }
 
   return (
-    <View style = {styles.container}>
-      <AddTaskModal modalOpen = {modalOpen} closeModalHandler = {closeModalHandler}/>
+    <ImageBackground style = {styles.container} source = {images.chamberBackground}>
+      {/* <ScrollView style = {styles.backgroundColor}> */}
+      <View style = {styles.backgroundColor}>
+        <AddTaskModal modalOpen = {modalOpen} addTaskHandler = {addTaskHandler} closeTaskModalHandler = {closeTaskModalHandler}/>
 
-      <Text style = {styles.inputTitle}>Quest Name:</Text>
-      <TextInput
-        // placeholder="Enter Quest Name"
-        style = {styles.input}
-        onChangeText={(text) => {
-          questForm.title = text;
-          setQuestForm(questForm);
-        }}
-      />
-      <DropDownPicker
-        open={open}
-        value={selectedPlayers}
-        items={items}
-        setOpen={setOpen}
-        setValue={setSelectedPlayers}
-        setItems={setItems}
-        // listmode="SCROLLVIEW"
-        searchable = {true}
-        multiple={true}
-        placeholder="Add Players"
-        searchPlaceholder="Search..."
-        placeholderStyle={{
-          color: "black",
-          fontWeight: "bold",
-          fontFamily: 'Menlo'
-        }}
-        style = {styles.addPlayers}
-        containerStyle={{
-          // alignSelf: 'center',
-          width: '50%',
-          marginTop: '5%',
-          marginLeft: '5%'
-        }}
-      />
-      <Text style = {styles.bossesHeader}>Slect Boss:</Text>
-      <View style = {styles.divider}></View>
-      <View style = {styles.bosses}>
-        {bosses.map( item => {
-          return (
-            <TouchableOpacity key={item.id} onPress = {pickBossHandler.bind(null, item)}>
-              <Image
-                style = {styles.boss}
-                key = {item.id}
-                source = {{uri: `/Users/jonhi1/Desktop/MVP/mvp/images/boss_stills/${item.image}`}}
-              />
-            </TouchableOpacity>
-          )
-        })}
+        <Text style = {styles.inputTitle}>Quest Name:</Text>
+        <TextInput
+          // placeholder="Enter Quest Name"
+          style = {styles.input}
+          onChangeText={(text) => {
+            questForm.title = text;
+            setQuestForm(questForm);
+          }}
+        />
+        <DropDownPicker
+          open={open}
+          value={selectedPlayers}
+          items={items}
+          setOpen={setOpen}
+          setValue={setSelectedPlayers}
+          setItems={setItems}
+          // listmode="SCROLLVIEW"
+          searchable = {true}
+          multiple={true}
+          placeholder="Add Players"
+          searchPlaceholder="Search..."
+          placeholderStyle={{
+            color: "black",
+            fontWeight: "bold",
+            fontFamily: 'Menlo'
+          }}
+          style = {styles.addPlayers}
+          containerStyle={{
+            // alignSelf: 'center',
+            width: '50%',
+            marginTop: '5%',
+            marginLeft: '5%'
+          }}
+        />
+        <Text style = {styles.bossesHeader}>Slect Boss:</Text>
+        <View style = {styles.divider}></View>
+        <View style = {styles.bosses}>
+          {bosses.map( item => {
+            return (
+              <TouchableOpacity key={item.id} onPress = {pickBossHandler.bind(null, item)}>
+                <Image
+                  style = {styles.boss}
+                  key = {item.id}
+                  source = {{uri: `/Users/jonhi1/Desktop/MVP/mvp/images/boss_stills/${item.image}`}}
+                />
+              </TouchableOpacity>
+            )
+          })}
+        </View>
+        <Text style = {styles.stagesHeader}>Slect Stage:</Text>
+        <View style = {styles.divider}></View>
+        <Carousel
+          ref={carouselRef}
+          data={stages}
+          renderItem={renderItem}
+          style={styles.carousel}
+          itemWidth={windowWidth * 0.8}
+          containerWidth={windowWidth}
+          separatorWidth={-30}
+        />
+        <Tasks tasks = {questForm.tasks} createTaskHandler = {createTaskHandler}/>
+        <TouchableOpacity style = {styles.button}onPress={createQuestHandler}>
+          <Text style = {styles.buttonText} >Create Quest</Text>
+        </TouchableOpacity>
+      {/* </ScrollView> */}
       </View>
-      <Text style = {styles.stagesHeader}>Slect Stage:</Text>
-      <View style = {styles.divider}></View>
-      <Carousel
-        ref={carouselRef}
-        data={stages}
-        renderItem={renderItem}
-        style={styles.carousel}
-        itemWidth={windowWidth * 0.8}
-        containerWidth={windowWidth}
-        separatorWidth={-30}
-      />
-      <View style = {styles.divider}></View>
-      <Tasks tasks = {questForm.tasks} createTaskHandler = {createTaskHandler}/>
-      <TouchableOpacity style = {styles.button}onPress={createQuestHandler}>
-        <Text style = {styles.buttonText} >Create Quest</Text>
-      </TouchableOpacity>
-    </View>
+    </ImageBackground>
   )
 }
 
 const styles = StyleSheet.create({
   container:{
-
+    height: '100%',
+    justifyContent: 'center'
+  },
+  backgroundColor: {
+    backgroundColor: 'rgba(255, 255, 255, 0.30)',
+    marginTop: '10%',
+    marginLeft: '5%',
+    marginRight: '5%',
+    height: '100%',
+    borderRadius: 10
   },
   inputTitle: {
-    marginTop: '5%',
     fontFamily: 'Menlo',
+    fontSize: 20,
     fontWeight: 'bold',
+    marginTop: '5%',
     marginLeft: '5%'
   },
   input: {
     borderWidth: 1,
-    width: '50%',
+    width: '90%',
     height: '5%',
     marginLeft: '5%'
     // alignSelf: 'center'

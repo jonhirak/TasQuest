@@ -13,12 +13,12 @@ const StartQuest = ({ navigation }) => {
       boss:`slime`,
       stage: 'patternedStage',
       health: 2000,
-      currentHealth: 450,
+      currentHealth: 2000,
       tasks: [
         {
           id: 1,
           title: 'task1',
-          size: 'S'
+          size: 'L'
         },
         {
           id: 2,
@@ -28,6 +28,11 @@ const StartQuest = ({ navigation }) => {
         {
           id: 3,
           title: 'task3',
+          size: 'M',
+        },
+        {
+          id: 4,
+          title: 'task4',
           size: 'M',
         }
       ],
@@ -60,8 +65,8 @@ const StartQuest = ({ navigation }) => {
       title: 'SDC',
       boss:'dragon',
       stage: 'blueSkyStage',
-      health: 3500,
-      currentHealth: 50,
+      health: 10500,
+      currentHealth: 1600,
       tasks: [
         {
           id: 1,
@@ -107,9 +112,25 @@ const StartQuest = ({ navigation }) => {
       title: 'Blue Ocean',
       boss:'alien',
       stage: 'rocksStage',
-      health: 7000,
-      currentHealth: 6400,
-      tasks: [],
+      health: 7400,
+      currentHealth: 2500,
+      tasks: [
+        {
+          id: 1,
+          title: 'task1',
+          size: 'XL'
+        },
+        {
+          id: 2,
+          title: 'task2',
+          size: 'XL',
+        },
+        {
+          id: 3,
+          title: 'task3',
+          size: 'L',
+        }
+      ],
       players: [
         {
           id: 1,
@@ -170,7 +191,7 @@ const StartQuest = ({ navigation }) => {
   return (
     <ImageBackground
           style = {styles.container}
-          source = {images.grassBackground}
+          source = {images.swordBackground}
       >
       <Text style = {styles.questsHeader}>
         Your Quests
@@ -191,7 +212,7 @@ const StartQuest = ({ navigation }) => {
       <TouchableOpacity style = {styles.button}onPress={pressNewQuestHandler}>
         <Text style = {styles.buttonText} >New Quest</Text>
       </TouchableOpacity>
-      </ImageBackground>
+    </ImageBackground>
   )
 }
 
@@ -223,14 +244,14 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginTop: 10,
     justifyContent: 'space-between',
-    backgroundColor: 'rgba(0,0,0,0.5)',
-    shadowColor: '#7f5df0',
-    shadowOffset: {
-      width: 0,
-      height: 0,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.5
+    backgroundColor: 'rgba(0,0,0,0.6)',
+    // shadowColor: 'rgba(0,0,0,1)',
+    // shadowOffset: {
+    //   width: 2,
+    //   height: ,
+    // },
+    // shadowOpacity: 1,
+    // shadowRadius: 5
   },
   questName: {
     fontFamily: 'Menlo',

@@ -9,15 +9,17 @@ const Task = ({ task, completeTaskHandler }) => {
 
   return (
     <View style = {styles.list}>
-      <Text style = {styles.taskTitle}>{task.title}</Text>
-      <View style = {styles.sizeContainer}>
-        <Text style = {styles.taskSize}>{task.size}</Text>
+      <View style = {styles.taskInfo}>
+        <View style = {styles.sizeContainer}>
+          <Text style = {styles.taskSize}>{task.size}</Text>
+        </View>
+        <Text style = {styles.taskTitle}>{task.title}</Text>
       </View>
       {completeTaskHandler &&
         <View style = {styles.complete}>
           <TouchableOpacity onPress = {completeTaskHandler.bind(null, task)}>
-          <FontAwesomeIcon icon={faFeatherAlt} style = {styles.attackIcon}/>
-            <Text>
+          {/* <FontAwesomeIcon icon={faFeatherAlt} style = {styles.attackIcon}/> */}
+            <Text style = {styles.completeButton}>
               Complete
             </Text>
           </TouchableOpacity>
@@ -35,22 +37,30 @@ const styles = StyleSheet.create({
     height: 50,
     borderRadius: 10,
     marginTop: 10,
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    backgroundColor: 'rgba(0,0,0,0.4)',
+  },
+  taskInfo: {
+    flexDirection: 'row',
+    height: '100%',
+    alignItems: 'center'
   },
   taskTitle:{
     fontFamily: 'Menlo',
     fontWeight: 'bold',
-    marginLeft: 5
+    marginLeft: 5,
   },
   sizeContainer: {
     width: 30,
-    height: 30,
-    borderRadius: 20,
+    height: '100%',
+    // borderRadius: 20,
     backgroundColor: 'black',
     padding: 5,
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: 5
+    marginRight: 5,
+    borderTopLeftRadius: 5,
+    borderBottomLeftRadius: 5
   },
   taskSize: {
     fontFamily: 'Menlo',
@@ -59,9 +69,18 @@ const styles = StyleSheet.create({
   },
   complete: {
     borderWidth: 1,
-    backgroundColor: 'ivory',
-    width: '20%'
+    borderRadius: 5,
+    padding: 5,
+    flexDirection: 'row',
+    width: 80,
+    backgroundColor: 'black',
+    justifyContent: 'center',
+    marginBottom: 3,
+    marginRight: 3
   },
+  completeButton: {
+    color: 'white'
+  }
 })
 
 export default Task;

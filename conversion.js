@@ -1,6 +1,6 @@
 export const conversion = {
-  S: 10,
-  M: 25,
-  L: 50,
-  XL: 100,
+  S: 100,
+  M: 250,
+  L: 500,
+  XL: 1000,
 };

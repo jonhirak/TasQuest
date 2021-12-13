@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Modal, Image, StyleSheet, ScrollView, ImageBackground, Button } from 'react-native';
+import { View, Text, Modal, Image, StyleSheet, ScrollView, ImageBackground, Button, Animated, TouchableOpacity } from 'react-native';
 import HealthBar from '../components/healthBar';
 import Tasks from '../components/tasks'
 import Logs from '../components/logs';
@@ -16,7 +16,7 @@ const Quest = ({ navigation }) => {
   const [ logs, setLogs ] = useState([
     {
       id: 3,
-      time: '2021-11-2, 08:54:04',
+      time: '2021-11-2 08:54:04',
       text: 'toolpanda completed task "implement a modal in the Q&A widget" and dealt 25 damage!'
     },
     {
@@ -57,6 +57,74 @@ const Quest = ({ navigation }) => {
   const [ taskModalOpen, setTaskModalOpen ] = useState(false);
   const [ selectedPlayer, setSelectedPlayer ] = useState({});
   const [ quest, setQuest ] = useState({});
+  const [ leftValue,] = useState(new Animated.Value(10));
+  const [ topValue,] = useState(new Animated.Value(0));
+  const [ opacityValue,] = useState(new Animated.Value(1));
+  const [ heightValue, ] = useState(new Animated.Value(60));
+  const [ widthValue, ] = useState(new Animated.Value(60));
+  let treasureClicked = false;
+
+  const animateTreasure = () => {
+    if (!treasureClicked) {
+      Animated.timing(leftValue, {
+        toValue: 70,
+        duration: 1000,
+        useNativeDriver: false
+      }).start()
+      Animated.timing(topValue, {
+        toValue: 50,
+        duration: 1000,
+        useNativeDriver: false
+      }).start()
+      Animated.timing(heightValue, {
+        toValue: 200,
+        duration: 1000,
+        useNativeDriver: false
+      }).start()
+      Animated.timing(widthValue, {
+        toValue: 200,
+        duration: 1000,
+        useNativeDriver: false
+      }).start()
+
+      treasureClicked = true;
+    } else {
+      if (quest.currentHealth > 0) {
+        Animated.timing(leftValue, {
+          toValue: 10,
+          duration: 1000,
+          useNativeDriver: false
+        }).start()
+        Animated.timing(topValue, {
+          toValue: 0,
+          duration: 1000,
+          useNativeDriver: false
+        }).start()
+        Animated.timing(heightValue, {
+          toValue: 60,
+          duration: 1000,
+          useNativeDriver: false
+        }).start()
+        Animated.timing(widthValue, {
+          toValue: 60,
+          duration: 1000,
+          useNativeDriver: false
+        }).start()
+
+        treasureClicked = false;
+      } else {
+        //if boss has no health,
+      }
+    }
+  }
+
+  const fadeOutBoss = () => {
+    Animated.timing(opacityValue, {
+      toValue: 0,
+      duration: 1000,
+      useNativeDriver: false
+    }).start()
+  };
 
   const completeTaskHandler = (task) => {
 
@@ -71,6 +139,12 @@ const Quest = ({ navigation }) => {
     let copy = quest;
 
     copy.currentHealth = copy.currentHealth - conversion[task.size]
+
+    if (copy.currentHealth < 0) {
+      fadeOutBoss();
+      animateTreasure();
+    }
+
     setQuest({...copy});
 
     const log = {
@@ -101,7 +175,7 @@ const Quest = ({ navigation }) => {
     setTaskModalOpen(true);
   };
 
-  const closeModalHandler = (taskForm, value) => {
+  const addTaskHandler = (taskForm, value) => {
     taskForm.size = value;
     taskForm.id = randomId();
 
@@ -111,6 +185,10 @@ const Quest = ({ navigation }) => {
 
     setTasks(tasks);
 
+    setTaskModalOpen(false);
+  };
+
+  const closeTaskModalHandler = () => {
     setTaskModalOpen(false);
   };
 
@@ -126,52 +204,117 @@ const Quest = ({ navigation }) => {
   const healthPercent = quest.currentHealth/quest.health * 100;
 
   return (
-    <ScrollView style = {styles.view}>
-
-      <Modal visible={modalOpen} animationType='slide'>
-        <View style = {styles.modalContent}>
-          <Text style = {styles.name} >{selectedPlayer.name}</Text>
-          <Image style = {styles.portrait} source = {{uri: `/Users/jonhi1/Desktop/MVP/mvp/images/portraits/${selectedPlayer.photo}`}} />
-          <Text style = {styles.level} >Level {selectedPlayer.level}</Text>
-          <View style = {styles.expBar}>
-            <LevelBar currentHealth = {2025} health = {2900} height = {15} healthPercent = {70}/>
-          </View>
-          <Button onPress={()=> setModalOpen(false)} title='Close' style={styles.Close}/>
-        </View>
-      </Modal>
-
-      <AddTaskModal modalOpen = {taskModalOpen} closeModalHandler = {closeModalHandler}/>
-
-      <View style = {styles.screen}>
-        <ImageBackground
+    <View style = {styles.view}>
+      <ImageBackground
           style = {styles.stage}
-          source = {images[quest.stage]}
-        >
-          <View style = {styles.healthBar}>
-            <HealthBar currentHealth = {quest.currentHealth} health = {quest.health} height = {15} healthPercent = {healthPercent} />
-          </View>
-          <Image
-            style = {styles.bossSprite}
-            source = {gifs[quest.boss]}
-          />
-          <View>
-            <View style = {styles.playersBackground}>
+          source = {images.grassTowerBackground2}
+      >
+        {/* <ScrollView> */}
+
+          <Modal visible={modalOpen} animationType='slide'>
+            <View style = {styles.modalContent}>
+              <Text style = {styles.name} >{selectedPlayer.name}</Text>
+              <Image style = {styles.portrait} source = {{uri: `/Users/jonhi1/Desktop/MVP/mvp/images/portraits/${selectedPlayer.photo}`}} />
+              <Text style = {styles.level} >Level {selectedPlayer.level}</Text>
+              <View style = {styles.expBar}>
+                <LevelBar currentHealth = {2025} health = {2900} height = {15} healthPercent = {70}/>
+              </View>
+              <Button onPress={()=> setModalOpen(false)} title='Close' style={styles.Close}/>
             </View>
-            <Players players = { players } pressPlayerIconHandler={pressPlayerIconHandler}/>
-          </View>
+          </Modal>
+
+          <AddTaskModal modalOpen = {taskModalOpen} addTaskHandler = {addTaskHandler} closeTaskModalHandler = {closeTaskModalHandler}/>
+
+          <View style = {styles.screen}>
+            <ImageBackground
+              style = {styles.stage}
+              source = {images[quest.stage]}
+            >
+              <Animated.View
+                style={
+                  {
+                    width: widthValue,
+                    height: heightValue,
+                    marginLeft: leftValue,
+                    marginTop: topValue,
+                    borderRadius: 100/2,
+                    position: 'absolute',
+                    // backgroundColor: 'red',
+                    // opacity: opacityValue,
+                    flex: 1,
+                    zIndex: 1
+                  }
+                }
+              >
+                <TouchableOpacity
+                  style={{
+                    alignSelf: 'center',
+                    height: '100%',
+                    width: '100%',
+                    aspectRatio: 1,
+                    marginLeft: '3%',
+                    position: 'absolute'
+                 }}
+                 onPress={animateTreasure}
+                >
+                  {/* {quest.currentHealth > 0 ? */}
+                    <Image
+                      style = {styles.treasureIcon}
+                      source={images.treasure}
+                      resizeMode= {'cover'}
+                    />
+                    {/* :<Image
+                    style = {styles.treasureGif}
+                    source={gifs.treasure}
+                    resizeMode= {'cover'}
+                    />
+                  } */}
+                </TouchableOpacity>
+              </Animated.View>
+              <View style = {styles.healthBar}>
+                <HealthBar currentHealth = {quest.currentHealth} health = {quest.health} height = {15} healthPercent = {healthPercent} />
+              </View>
+              <Animated.View
+                style = {{
+                  alignSelf: 'center',
+                  maxHeight: 180,
+                  maxWidth: 180,
+                  opacity: opacityValue
+                }}
+              >
+                <Image
+                  style = {styles.bossSprite}
+                  source = {gifs[quest.boss]}
+                />
+              </Animated.View>
+              <View>
+                <View style = {styles.playersBackground}>
+                </View>
+                <Players players = { players } pressPlayerIconHandler={pressPlayerIconHandler}/>
+              </View>
         </ImageBackground>
       </View>
-      <Tasks tasks = {tasks} completeTaskHandler = {completeTaskHandler} createTaskHandler={createTaskHandler}/>
-      <Logs logs = {logs}/>
-    </ScrollView>
+      <ScrollView>
+        <Tasks tasks = {tasks} completeTaskHandler = {completeTaskHandler} createTaskHandler={createTaskHandler}/>
+        <Logs logs = {logs}/>
+
+        </ScrollView>
+      </ImageBackground>
+    </View>
   )
 }
 
 const styles = StyleSheet.create({
   view: {
     flex: 1,
-    backgroundColor: "rgb(180, 216, 74)",
-    // width: '100%',
+    // backgroundColor: "rgb(180, 216, 74)",
+    width: '100%',
+  },
+  logContainer: {
+    width: '100%',
+    height: '66%',
+    // justifyContent: 'center',
+    alignItems: 'center'
   },
   screen: {
     marginTop: '3%',
@@ -179,6 +322,22 @@ const styles = StyleSheet.create({
     borderWidth: 5,
     width: '96%',
     maxHeight: '42%',
+  },
+  treasureIcon: {
+    alignSelf: 'center',
+    height: '100%',
+    width: '100%',
+    aspectRatio: 1,
+    marginLeft: '3%',
+    position: 'absolute'
+  },
+  treasureGif: {
+    alignSelf: 'center',
+    height: '100%',
+    width: '100%',
+    aspectRatio: 1,
+    marginLeft: '3%',
+    position: 'absolute'
   },
   stage: {
     maxHeight: '100%'

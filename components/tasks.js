@@ -8,20 +8,16 @@ const Tasks = ({ tasks, completeTaskHandler, createTaskHandler }) => {
   return (
     <View style = {styles.tasks}>
       <View style = {styles.header}>
-        <Text style = {styles.tasksHeader}>Tasks:</Text>
-        {/* <View style = {styles.addButton}>
-          <Text style = {styles.tasksHeader}>Add</Text>
-          <FontAwesomeIcon icon={faFeatherAlt} style = {styles.addIcon} onPress = {createTaskHandler}/>
-        </View> */}
+        <Text style = {styles.tasksTitle}>Tasks:</Text>
+        <TouchableOpacity style = {styles.addButton} onPress = {createTaskHandler}>
+          <FontAwesomeIcon icon={faFeatherAlt} style = {styles.addIcon}/>
+          <Text style = {styles.tasksHeader}>|Add</Text>
+        </TouchableOpacity>
       </View>
       <View style = {styles.divider}></View>
       {tasks.map( item => {
         return <Task task = {item} completeTaskHandler = {completeTaskHandler} key = {item.id} />
       })}
-       <TouchableOpacity style = {styles.addButton} onPress = {createTaskHandler}>
-          <Text style = {styles.tasksHeader}>Add</Text>
-          <FontAwesomeIcon icon={faFeatherAlt} style = {styles.addIcon}/>
-        </TouchableOpacity>
     </View>
   );
 };
@@ -31,29 +27,39 @@ const styles = StyleSheet.create({
     margin: 20,
     // borderWidth: 1
   },
+  tasksTitle: {
+    fontFamily: 'Menlo',
+    fontSize: 20,
+    fontWeight: 'bold',
+    alignSelf: 'center'
+  },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between'
   },
   tasksHeader: {
     fontFamily: 'Menlo',
-    fontWeight: 'bold',
+    // fontWeight: 'bold',
     // marginLeft: '5%',
-    fontSize: 20
+    fontSize: 15,
+    color: 'white'
   },
   divider: {
     borderBottomWidth: 1,
-    width: '80%'
   },
   addButton:{
     borderWidth: 1,
     borderRadius: 5,
     padding: 5,
     flexDirection: 'row',
-    width: '20%'
+    width: 70,
+    backgroundColor: 'black',
+    justifyContent: 'center',
+    marginBottom: 3
   },
   addIcon: {
     alignSelf: 'center',
+    color: 'white'
   }
 })
 

@@ -31,7 +31,6 @@ const HomeStack = createStackNavigator(screens, {
     title: 'TasQuest',
       headerStyle: {
         backgroundColor: '#eee',
-        headerTintColor: '#444'
       }
   }
 });
