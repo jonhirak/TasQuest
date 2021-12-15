@@ -216,7 +216,7 @@ const NewQuest = ({ navigation }) => {
         />
         <Text style = {styles.bossesHeader}>Slect Boss:</Text>
         <View style = {styles.divider}></View>
-        <View style = {styles.bosses}>
+        <View style = {[styles.bosses, styles.shadowProp]}>
           {bosses.map( item => {
             return (
               <TouchableOpacity key={item.id} onPress = {pickBossHandler.bind(null, item)}>
@@ -291,10 +291,16 @@ const styles = StyleSheet.create({
   boss: {
     width: 80,
     height: 80,
-    borderRadius: 100/2,
+    borderRadius: 20,
     margin: 10,
     backgroundColor: 'rgba(0,0,0,5)',
     borderWidth: 2,
+  },
+  shadowProp: {
+    shadowColor: '#171717',
+    shadowOffset: {width: -5, height: 4},
+    shadowOpacity: 0.8,
+    shadowRadius: 8,
   },
   addPlayers: {
     height: 30,
@@ -324,7 +330,6 @@ const styles = StyleSheet.create({
   divider: {
     borderBottomWidth: 1,
     width: '90%',
-    // marginTop: '5%',
     alignSelf: 'center'
   },
   button: {

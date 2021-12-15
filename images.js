@@ -24,5 +24,5 @@ export const gifs = {
   slime: require('./images/boss_gifs/slime.gif'),
   dragon: require('./images/boss_gifs/dragon.gif'),
   alien: require('./images/boss_gifs/alien.gif'),
-  treasure: require('./images/treasure3.gif')
+  treasure: require('./images/treasure4.gif')
 }

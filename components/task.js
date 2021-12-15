@@ -43,11 +43,13 @@ const styles = StyleSheet.create({
   taskInfo: {
     flexDirection: 'row',
     height: '100%',
-    alignItems: 'center'
+    alignItems: 'center',
+    flex: 4
   },
   taskTitle:{
     fontFamily: 'Menlo',
     fontWeight: 'bold',
+    maxWidth: '80%',
     marginLeft: 5,
   },
   sizeContainer: {
@@ -76,7 +78,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
     justifyContent: 'center',
     marginBottom: 3,
-    marginRight: 3
+    marginRight: 3,
+    flex: 1
   },
   completeButton: {
     color: 'white'

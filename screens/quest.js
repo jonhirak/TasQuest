@@ -140,7 +140,7 @@ const Quest = ({ navigation }) => {
 
     copy.currentHealth = copy.currentHealth - conversion[task.size]
 
-    if (copy.currentHealth < 0) {
+    if (copy.currentHealth < 1) {
       fadeOutBoss();
       animateTreasure();
     }
@@ -257,18 +257,18 @@ const Quest = ({ navigation }) => {
                  }}
                  onPress={animateTreasure}
                 >
-                  {/* {quest.currentHealth > 0 ? */}
+                  {quest.currentHealth > 0 ?
                     <Image
                       style = {styles.treasureIcon}
                       source={images.treasure}
                       resizeMode= {'cover'}
                     />
-                    {/* :<Image
-                    style = {styles.treasureGif}
-                    source={gifs.treasure}
-                    resizeMode= {'cover'}
-                    />
-                  } */}
+                    :<Image
+                      style = {styles.treasureGif}
+                      source={gifs.treasure}
+                      resizeMode= {'cover'}
+                      />
+                    }
                 </TouchableOpacity>
               </Animated.View>
               <View style = {styles.healthBar}>
