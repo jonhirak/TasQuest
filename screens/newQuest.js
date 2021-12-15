@@ -20,6 +20,7 @@ const NewQuest = ({ navigation }) => {
     currentHealth: 0,
     tasks: [],
     players: [],
+    reward: '',
   });
 
   const carouselRef = React.useRef(null);
@@ -241,6 +242,15 @@ const NewQuest = ({ navigation }) => {
           separatorWidth={-30}
         />
         <Tasks tasks = {questForm.tasks} createTaskHandler = {createTaskHandler}/>
+        <Text style = {styles.inputTitle}>Reward(s):</Text>
+        <TextInput
+          // placeholder="Enter Complation Reward(s)"
+          style = {styles.input}
+          onChangeText={(text) => {
+            questForm.reward = text;
+            setQuestForm(questForm);
+          }}
+        />
         <TouchableOpacity style = {styles.button}onPress={createQuestHandler}>
           <Text style = {styles.buttonText} >Create Quest</Text>
         </TouchableOpacity>
@@ -253,7 +263,7 @@ const NewQuest = ({ navigation }) => {
 const styles = StyleSheet.create({
   container:{
     height: '100%',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   backgroundColor: {
     backgroundColor: 'rgba(255, 255, 255, 0.30)',
@@ -341,7 +351,8 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     elevation: 3,
     backgroundColor: 'black',
-    width: '70%'
+    width: '70%',
+    marginTop: '5%'
   },
   buttonText: {
     fontSize: 16,

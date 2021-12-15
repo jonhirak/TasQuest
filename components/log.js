@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
   logContainer: {
     // borderWidth: 1,
     padding: 10,
-    backgroundColor: 'rgba(0,0,0,0.3)',
+    backgroundColor: 'rgba(255, 255, 255, 0.6)',
     borderWidth: 1,
     borderRadius: 10,
     marginTop: 10,

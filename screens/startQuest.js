@@ -14,6 +14,7 @@ const StartQuest = ({ navigation }) => {
       stage: 'patternedStage',
       health: 2000,
       currentHealth: 2000,
+      reward: 'Pizza party',
       tasks: [
         {
           id: 1,
@@ -67,6 +68,7 @@ const StartQuest = ({ navigation }) => {
       stage: 'blueSkyStage',
       health: 10500,
       currentHealth: 1600,
+      reward: 'Movie night',
       tasks: [
         {
           id: 1,
@@ -114,6 +116,7 @@ const StartQuest = ({ navigation }) => {
       stage: 'rocksStage',
       health: 7400,
       currentHealth: 2500,
+      reward: 'Video games!',
       tasks: [
         {
           id: 1,
@@ -220,13 +223,13 @@ const styles = StyleSheet.create({
   container: {
     height: '100%',
     alignItems: 'center',
-    // alignSelf: 'flex-end'
   },
   questsHeader: {
     fontFamily: 'Menlo',
     fontWeight: 'bold',
-    fontSize: 20,
-    width: '80%'
+    fontSize: 30,
+    width: '80%',
+    marginTop: '10%'
   },
   divider: {
     borderBottomWidth: 1,

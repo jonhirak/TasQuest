@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginTop: 10,
     justifyContent: 'space-between',
-    backgroundColor: 'rgba(0,0,0,0.4)',
+    backgroundColor: 'rgba(255, 255, 255, 0.6)',
   },
   taskInfo: {
     flexDirection: 'row',

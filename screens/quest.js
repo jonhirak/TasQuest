@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { View, Text, Modal, Image, StyleSheet, ScrollView, ImageBackground, Button, Animated, TouchableOpacity } from 'react-native';
 import HealthBar from '../components/healthBar';
 import Tasks from '../components/tasks'
@@ -6,7 +6,6 @@ import Logs from '../components/logs';
 import Players from '../components/players';
 import LevelBar from '../components/levelBar';
 import AddTaskModal from '../components/addTaskModal'
-import FastImage from 'react-native-fast-image';
 import { gifs, images } from '../images';
 import { randomId } from '../randomId'
 import { conversion } from '../conversion'
@@ -59,9 +58,13 @@ const Quest = ({ navigation }) => {
   const [ quest, setQuest ] = useState({});
   const [ leftValue,] = useState(new Animated.Value(10));
   const [ topValue,] = useState(new Animated.Value(0));
-  const [ opacityValue,] = useState(new Animated.Value(1));
+  const [ bossOpacityValue,] = useState(new Animated.Value(1));
+  const [ textOpacityValue,] = useState(new Animated.Value(0));
   const [ heightValue, ] = useState(new Animated.Value(60));
   const [ widthValue, ] = useState(new Animated.Value(60));
+  const [ victoryHeightValue, ] = useState(new Animated.Value(0));
+  // const [ healthPercent, ] = useState(new Animated.Value(100));
+
   let treasureClicked = false;
 
   const animateTreasure = () => {
@@ -112,16 +115,60 @@ const Quest = ({ navigation }) => {
         }).start()
 
         treasureClicked = false;
-      } else {
-        //if boss has no health,
       }
     }
-  }
+  };
 
   const fadeOutBoss = () => {
-    Animated.timing(opacityValue, {
+    Animated.timing(bossOpacityValue, {
       toValue: 0,
       duration: 1000,
+      useNativeDriver: false
+    }).start()
+  };
+
+  const animateBossDamage = () => {
+
+    Animated.loop(
+      Animated.sequence([
+        Animated.timing(bossOpacityValue, {
+          toValue: 0,
+          duration: 50,
+          useNativeDriver: false,
+        }),
+        Animated.timing(bossOpacityValue, {
+          toValue: 1,
+          duration: 50,
+          useNativeDriver: false,
+        })
+      ]), {
+        iterations: 5,
+      }
+    ).start()
+  }
+
+  const animateVictoryMessage = () => {
+    setTimeout(fadeInText ,1000);
+
+    Animated.timing(victoryHeightValue, {
+      toValue: 250,
+      duration: 1000,
+      useNativeDriver: false
+    }).start()
+  };
+
+  const fadeInText = () => {
+    Animated.timing(textOpacityValue, {
+      toValue: 1,
+      duration: 2000,
+      useNativeDriver: false
+    }).start()
+  };
+
+  const animateHealthBar = () => {
+    Animated.timing(healthPercent, {
+      toValue: 50,
+      duration: 2000,
       useNativeDriver: false
     }).start()
   };
@@ -140,9 +187,14 @@ const Quest = ({ navigation }) => {
 
     copy.currentHealth = copy.currentHealth - conversion[task.size]
 
+    // animateHealthBar();
+
     if (copy.currentHealth < 1) {
       fadeOutBoss();
       animateTreasure();
+      setTimeout(animateVictoryMessage, 3800);
+    } else {
+      animateBossDamage();
     }
 
     setQuest({...copy});
@@ -240,7 +292,6 @@ const Quest = ({ navigation }) => {
                     borderRadius: 100/2,
                     position: 'absolute',
                     // backgroundColor: 'red',
-                    // opacity: opacityValue,
                     flex: 1,
                     zIndex: 1
                   }
@@ -271,6 +322,38 @@ const Quest = ({ navigation }) => {
                     }
                 </TouchableOpacity>
               </Animated.View>
+              <Animated.View
+                style={
+                  {
+                    width: 200,
+                    height: victoryHeightValue,
+                    alignSelf: 'center',
+                    borderRadius: 2,
+                    position: 'absolute',
+                    flex: 1,
+                    zIndex: 1
+                  }
+                }
+              >
+                <ImageBackground
+                  style = {styles.scroll}
+                  source={images.scroll}
+                  resizeMode= {'cover'}
+                >
+                  <Animated.View
+                  style = {{
+                    alignSelf: 'center',
+                    maxHeight: 180,
+                    maxWidth: 180,
+                    opacity: textOpacityValue,
+                    marginTop: '15%'
+                  }}>
+                    <Text style={styles.scrollText}>Quest Complete!</Text>
+                    <Text style={styles.scrollText}>You have earned: </Text>
+                    <Text style={styles.scrollText}>{quest.reward}!!</Text>
+                  </Animated.View>
+                </ImageBackground>
+              </Animated.View>
               <View style = {styles.healthBar}>
                 <HealthBar currentHealth = {quest.currentHealth} health = {quest.health} height = {15} healthPercent = {healthPercent} />
               </View>
@@ -279,7 +362,7 @@ const Quest = ({ navigation }) => {
                   alignSelf: 'center',
                   maxHeight: 180,
                   maxWidth: 180,
-                  opacity: opacityValue
+                  opacity: bossOpacityValue
                 }}
               >
                 <Image
@@ -325,10 +408,11 @@ const styles = StyleSheet.create({
   },
   treasureIcon: {
     alignSelf: 'center',
-    height: '100%',
-    width: '100%',
+    height: '80%',
+    width: '80%',
     aspectRatio: 1,
     marginLeft: '3%',
+    marginTop: '15%',
     position: 'absolute'
   },
   treasureGif: {
@@ -338,6 +422,19 @@ const styles = StyleSheet.create({
     aspectRatio: 1,
     marginLeft: '3%',
     position: 'absolute'
+  },
+  scroll: {
+    alignItems:'center',
+    height: '100%',
+    width: '100%',
+    // justifyContent: 'center'
+  },
+  scrollText: {
+    marginTop: '5%',
+    width: 140,
+    color: 'rgba(145, 10, 10, 0.8)',
+    fontWeight: 'bold',
+    fontFamily: 'menlo'
   },
   stage: {
     maxHeight: '100%'
