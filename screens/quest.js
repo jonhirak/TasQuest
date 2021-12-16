@@ -307,9 +307,9 @@ const Quest = ({ navigation }) => {
                       {/* {renderAwards(i)} */}
                     </ImageBackground>
                     <View style={styles.playerData}>
-                      <Text>{player.name}</Text>
-                      <Text>Lv{player.level}</Text>
-                      <Text>{player.damage}</Text>
+                      {/* <Text>{player.name}</Text> */}
+                      <Text style={styles.nameLevelText}>Lv{player.level} | {player.name}</Text>
+                      <Text style={styles.damageText}>Dmg Dealt: {player.damage}</Text>
                     </View>
                   </View>
                 );
@@ -523,6 +523,13 @@ const styles = StyleSheet.create({
   },
   playerData: {
     flex: 2
+  },
+  nameLevelText: {
+    fontWeight: 'bold',
+    fontSize: 20
+  },
+  damageText: {
+    fontSize: 20,
   },
   leaderbordPortrait: {
     width: 100,
