@@ -16,17 +16,17 @@ const Quest = ({ navigation }) => {
     {
       id: 3,
       time: '2021-11-2 08:54:04',
-      text: 'toolpanda completed task "implement a modal in the Q&A widget" and dealt 25 damage!'
+      text: 'toolpanda completed task "implement a modal in the Q&A widget" and dealt 500 damage!'
     },
     {
       id: 2,
       time: '2021-11-2 08:02:45',
-      text: 'summyking completed "achieved 100% test coverage in Overview widget" and dealt 100 damage!'
+      text: 'summyking completed "achieved 100% test coverage in Overview widget" and dealt 250 damage!'
     },
     {
       id: 1,
       time: '2021-10-30 11:54:37',
-      text: 'mediocrekick completed task "implement photo uploads feature" and dealt 50 damage!'
+      text: 'mediocrekick completed task "implement photo uploads feature" and dealt 1000 damage!'
     }
   ]);
   const [ players, setPlayers ] = useState([
@@ -277,7 +277,7 @@ const Quest = ({ navigation }) => {
     <View style = {styles.view}>
       <ImageBackground
           style = {styles.stage}
-          source = {images.grassTowerBackground2}
+          source = {images.grassBackground2}
       >
         {/* <ScrollView> */}
 
@@ -448,7 +448,7 @@ const Quest = ({ navigation }) => {
             </ImageBackground>
         </ImageBackground>
       </View>
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <Tasks tasks = {tasks} completeTaskHandler = {completeTaskHandler} createTaskHandler={createTaskHandler}/>
         <Logs logs = {logs}/>
 

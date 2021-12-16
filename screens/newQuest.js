@@ -24,6 +24,7 @@ const NewQuest = ({ navigation }) => {
   });
 
   const carouselRef = React.useRef(null);
+  const overlayCarouselRef = React.useRef(null);
 
   const [ stages, setStages ] = useState([
     {
@@ -67,8 +68,36 @@ const NewQuest = ({ navigation }) => {
     },
     {
       id: 2,
-      name: 'forestOverlay',
+      name: 'crystalOverlay',
     },
+    {
+      id: 3,
+      name: 'iceCastleOverlay',
+    },
+    {
+      id: 4,
+      name: 'lightForestOverlay',
+    },
+    // {
+    //   id: 5,
+    //   name: 'skyOverlay',
+    // },
+    {
+      id: 6,
+      name: 'desertOverlay',
+    },
+    {
+      id: 7,
+      name: 'volcanoOverlay',
+    },
+    {
+      id: 8,
+      name: 'iceCaveOverlay',
+    },
+    // {
+    //   id: 9,
+    //   name: 'crystalOverlay',
+    // }
   ]);
 
   const [ bosses, setBosses ] = useState([
@@ -214,7 +243,7 @@ const NewQuest = ({ navigation }) => {
       <TouchableOpacity
               style={styles.item}
               onPress={() => {
-                carouselRef.current.scrollToIndex(index);
+                overlayCarouselRef.current.scrollToIndex(index);
                 setSelectedOverlay(item);
               }}>
         {/* Data Here */}
@@ -236,7 +265,7 @@ const NewQuest = ({ navigation }) => {
   }
 
   return (
-    <ImageBackground style = {styles.container} source = {images.chamberBackground}>
+    <ImageBackground style = {styles.container} source = {images.grassBackground2}>
       <ScrollView style = {styles.backgroundColor}>
         <View>
           <AddTaskModal modalOpen = {modalOpen} addTaskHandler = {addTaskHandler} closeTaskModalHandler = {closeTaskModalHandler}/>
@@ -252,6 +281,7 @@ const NewQuest = ({ navigation }) => {
           />
           <DropDownPicker
             open={open}
+            listMode="SCROLLVIEW"
             value={selectedPlayers}
             items={items}
             setOpen={setOpen}
@@ -275,22 +305,39 @@ const NewQuest = ({ navigation }) => {
               marginLeft: '5%'
             }}
           />
-          <Text style = {styles.bossesHeader}>Slect Boss:</Text>
+          <Text style = {styles.bossesHeader}>Select Boss:</Text>
           <View style = {styles.divider}></View>
           <View style = {[styles.bosses, styles.shadowProp]}>
             {bosses.map( item => {
               return (
                 <TouchableOpacity key={item.id} onPress = {pickBossHandler.bind(null, item)}>
-                  <Image
-                    style = {styles.boss}
-                    key = {item.id}
-                    source = {{uri: `/Users/jonhi1/Desktop/MVP/mvp/images/boss_stills/${item.image}`}}
-                  />
+                  {item.id === selectedBoss.id?
+                    <Image
+                      style = {styles.boss}
+                      key = {item.id}
+                      source = {{uri: `/Users/jonhi1/Desktop/MVP/mvp/images/boss_stills/${item.image}`}}
+                    />:
+                    <Image
+                      style = {styles.tintedBoss}
+                      key = {item.id}
+                      source = {{uri: `/Users/jonhi1/Desktop/MVP/mvp/images/boss_stills/${item.image}`}}
+                    />}
                 </TouchableOpacity>
               )
             })}
           </View>
-          <Text style = {styles.stagesHeader}>Slect Stage:</Text>
+          <Text style = {styles.stagesHeader}>Select Overlay:</Text>
+          <View style = {styles.divider}></View>
+          <Carousel
+            ref={overlayCarouselRef}
+            data={overlays}
+            renderItem={renderOverlay}
+            style={[styles.carousel, styles.shadowProp]}
+            itemWidth={windowWidth * 0.7}
+            containerWidth={windowWidth}
+            separatorWidth={20}
+          />
+          <Text style = {styles.stagesHeader}>Select Stage:</Text>
           <View style = {styles.divider}></View>
           <Carousel
             ref={carouselRef}
@@ -300,17 +347,6 @@ const NewQuest = ({ navigation }) => {
             itemWidth={windowWidth * 0.8}
             containerWidth={windowWidth}
             separatorWidth={-30}
-          />
-          <Text style = {styles.stagesHeader}>Select Overlay:</Text>
-          <View style = {styles.divider}></View>
-          <Carousel
-            ref={carouselRef}
-            data={overlays}
-            renderItem={renderOverlay}
-            style={[styles.carousel, styles.shadowProp]}
-            itemWidth={windowWidth * 0.7}
-            containerWidth={windowWidth}
-            separatorWidth={20}
           />
           <Tasks tasks = {questForm.tasks} createTaskHandler = {createTaskHandler}/>
           <Text style = {styles.inputTitle}>Reward(s):</Text>
@@ -338,11 +374,8 @@ const styles = StyleSheet.create({
   },
   backgroundColor: {
     backgroundColor: 'rgba(255, 255, 255, 0.3)',
-    // marginTop: '10%',
-    marginLeft: '5%',
-    marginRight: '5%',
     height: '100%',
-    // borderRadius: 10
+    width: '100%',
   },
   inputTitle: {
     fontFamily: 'Menlo',
@@ -355,7 +388,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     width: '90%',
     height: '3%',
-    marginLeft: '5%'
+    marginLeft: '5%',
+    backgroundColor: 'white'
     // alignSelf: 'center'
   },
   bossesHeader: {
@@ -376,6 +410,15 @@ const styles = StyleSheet.create({
     margin: 10,
     backgroundColor: 'rgba(0,0,0,5)',
     borderWidth: 2,
+  },
+  tintedBoss: {
+    width: 80,
+    height: 80,
+    borderRadius: 20,
+    margin: 10,
+    backgroundColor: 'rgba(0,0,0,5)',
+    borderWidth: 2,
+    opacity: 0.3,
   },
   shadowProp: {
     shadowColor: '#171717',

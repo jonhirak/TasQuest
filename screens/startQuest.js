@@ -194,7 +194,7 @@ const StartQuest = ({ navigation }) => {
   return (
     <ImageBackground
           style = {styles.container}
-          source = {images.swordBackground}
+          source = {images.grassTowerBackground3}
       >
       <Text style = {styles.questsHeader}>
         Your Quests

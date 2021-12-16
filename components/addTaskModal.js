@@ -34,15 +34,16 @@ const AddTaskModal = ({ modalOpen, addTaskHandler, closeTaskModalHandler }) => {
         <View style = {styles.modalContent}>
           <View style = {styles.modalHeader}>
             <Text style = {styles.modalHeaderText} >Create a New Task</ Text>
-            {/* <Pressable style = {styles.close}> */}
-              <FontAwesomeIcon icon={faTimesCircle} style = {styles.closeIcon} onPress={closeTaskModalHandler}/>
-            {/* </Pressable> */}
+            <TouchableOpacity style = {styles.close} onPress={closeTaskModalHandler}>
+              <FontAwesomeIcon icon={faTimesCircle} size={25} style = {styles.closeIcon}/>
+            </TouchableOpacity>
           </View>
           <ImageBackground
-            source={images.woodTiles}
+            source={images.stoneTexture}
             style={styles.background}
             imageStyle={{ resizeMode: 'repeat' }}
           >
+            <View style={styles.filter}>
             <View style = {styles.form}>
               <Text style = {styles.inputHeader}>Title:</Text>
               <TextInput
@@ -72,10 +73,10 @@ const AddTaskModal = ({ modalOpen, addTaskHandler, closeTaskModalHandler }) => {
                 setValue={setValue}
                 setItems={setItems}
               />
-              {/* <Button onPress={()=> closeModalHandler(taskForm, value)} title='Add' style={styles.close}/> */}
               <Pressable style = {styles.button} onPress={addTaskHandler.bind(null, taskForm, value)}>
                 <Text style = {styles.buttonText} >Add</Text>
               </Pressable>
+            </View>
             </View>
           </ImageBackground>
         </View>
@@ -118,8 +119,10 @@ const styles = StyleSheet.create({
   modalContent:{
     marginTop: 'auto',
     height: '50%',
-    backgroundColor: 'white',
-
+    // backgroundColor: 'rgba(255, 255, 255, 0.6)',
+  },
+  filter: {
+    backgroundColor: 'rgba(255, 255, 255, 0.3)',
   },
   form: {
     padding: 10
@@ -127,7 +130,9 @@ const styles = StyleSheet.create({
   inputHeader: {
     fontFamily: 'Menlo',
     fontWeight: 'bold',
-    marginTop: '2%'
+    fontSize: 20,
+    marginTop: '1%',
+    color: 'black',
   },
   input: {
     borderWidth: 2,
@@ -146,7 +151,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white'
   },
   button: {
-    marginTop: '10%',
+    marginTop: '5%',
     alignSelf: 'center',
     alignItems: 'center',
     justifyContent: 'center',
