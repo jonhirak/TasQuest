@@ -36,6 +36,7 @@ const Quest = ({ navigation }) => {
       level: 3,
       photo: 'fake-person-1.jpg',
       quests: [],
+      damage: 56500,
     },
     {
       id: 2,
@@ -43,6 +44,7 @@ const Quest = ({ navigation }) => {
       level: 3,
       photo: 'fake-person-2.jpg',
       quests: [],
+      damage: 46300,
     },
     {
       id: 3,
@@ -50,10 +52,12 @@ const Quest = ({ navigation }) => {
       level: 3,
       photo: 'fake-person-3.jpg',
       quests: [],
+      damage: 42900,
     }
   ])
   const [ modalOpen, setModalOpen ] = useState(false);
   const [ taskModalOpen, setTaskModalOpen ] = useState(false);
+  const [ leaderBoardsModalOpen, setLeaderBoardsModalOpen ] = useState(false);
   const [ selectedPlayer, setSelectedPlayer ] = useState({});
   const [ quest, setQuest ] = useState({});
   const [ leftValue,] = useState(new Animated.Value(10));
@@ -142,7 +146,7 @@ const Quest = ({ navigation }) => {
           useNativeDriver: false,
         })
       ]), {
-        iterations: 5,
+        iterations: 3,
       }
     ).start()
   }
@@ -165,13 +169,13 @@ const Quest = ({ navigation }) => {
     }).start()
   };
 
-  const animateHealthBar = () => {
-    Animated.timing(healthPercent, {
-      toValue: 50,
-      duration: 2000,
-      useNativeDriver: false
-    }).start()
-  };
+  // const animateHealthBar = () => {
+  //   Animated.timing(healthPercent, {
+  //     toValue: 50,
+  //     duration: 2000,
+  //     useNativeDriver: false
+  //   }).start()
+  // };
 
   const completeTaskHandler = (task) => {
 
@@ -231,17 +235,31 @@ const Quest = ({ navigation }) => {
     taskForm.size = value;
     taskForm.id = randomId();
 
+    let copy = quest;
+    copy.currentHealth += conversion[value];
+    copy.health += conversion[value];
+
     let taskFormCopy = {...taskForm};
 
     tasks.push(taskFormCopy);
 
     setTasks(tasks);
-
+    setQuest({...copy});
     setTaskModalOpen(false);
   };
 
   const closeTaskModalHandler = () => {
     setTaskModalOpen(false);
+  };
+
+  const renderAwards = (i) => {
+    if (i === 0) {
+      return  <Image style={styles.awards} source={images.gold}/>
+    } else if (i === 1) {
+      return <Image style={styles.awards} source={images.silver}/>
+    } else {
+      return <Image style={styles.awards} source={images.bronze}/>
+    }
   };
 
   useEffect(() => {
@@ -275,6 +293,36 @@ const Quest = ({ navigation }) => {
             </View>
           </Modal>
 
+          <Modal visible={leaderBoardsModalOpen} animationType='slide'>
+            <ImageBackground style = {styles.leaderBoardsContent} source={images.towerBackground}>
+            <View style = {styles.header}>
+              <Text style = {styles.leaderboardsTitle}>Leaderboard</Text>
+            </View>
+            <View style = {styles.divider}></View>
+            <View style={styles.leaderBoardsList}>
+              {players.map((player, i) => {
+                return (
+                  <View key={player.id} style={styles.playerCard}>
+                    <ImageBackground style = {styles.leaderbordPortrait} source = {{uri: `/Users/jonhi1/Desktop/MVP/mvp/images/portraits/${player.photo}`}}>
+                      {/* {renderAwards(i)} */}
+                    </ImageBackground>
+                    <View style={styles.playerData}>
+                      <Text>{player.name}</Text>
+                      <Text>Lv{player.level}</Text>
+                      <Text>{player.damage}</Text>
+                    </View>
+                  </View>
+                );
+              })}
+            </View>
+
+
+              <TouchableOpacity onPress={()=> setLeaderBoardsModalOpen(false)} style={styles.closeBtn}>
+                <Text style={styles.closeBtnText}>Close</Text>
+              </TouchableOpacity>
+            </ImageBackground>
+          </Modal>
+
           <AddTaskModal modalOpen = {taskModalOpen} addTaskHandler = {addTaskHandler} closeTaskModalHandler = {closeTaskModalHandler}/>
 
           <View style = {styles.screen}>
@@ -282,6 +330,27 @@ const Quest = ({ navigation }) => {
               style = {styles.stage}
               source = {images[quest.stage]}
             >
+            <ImageBackground
+            style = {styles.stage}
+            source = {images[quest.overlay]}
+            >
+              <TouchableOpacity
+                  style={{
+                    alignSelf: 'center',
+                    height: '100%',
+                    width: '100%',
+                    aspectRatio: 1,
+                    marginLeft: '3%',
+                    position: 'absolute'
+                 }}
+                 onPress={() => {
+                   setLeaderBoardsModalOpen(true);
+                 }}
+              >
+                <View style={styles.leaderBoardsIconContainer}>
+                  <Image style={styles.leaderBoardsIcon}source={images.crown}/>
+                </View>
+              </TouchableOpacity>
               <Animated.View
                 style={
                   {
@@ -291,7 +360,6 @@ const Quest = ({ navigation }) => {
                     marginTop: topValue,
                     borderRadius: 100/2,
                     position: 'absolute',
-                    // backgroundColor: 'red',
                     flex: 1,
                     zIndex: 1
                   }
@@ -328,10 +396,12 @@ const Quest = ({ navigation }) => {
                     width: 200,
                     height: victoryHeightValue,
                     alignSelf: 'center',
+                    alignItems: 'center',
+                    justifyContent: 'center',
                     borderRadius: 2,
                     position: 'absolute',
                     flex: 1,
-                    zIndex: 1
+                    zIndex: 1,
                   }
                 }
               >
@@ -342,15 +412,15 @@ const Quest = ({ navigation }) => {
                 >
                   <Animated.View
                   style = {{
-                    alignSelf: 'center',
+                    alignItems: 'center',
                     maxHeight: 180,
                     maxWidth: 180,
                     opacity: textOpacityValue,
                     marginTop: '15%'
                   }}>
-                    <Text style={styles.scrollText}>Quest Complete!</Text>
-                    <Text style={styles.scrollText}>You have earned: </Text>
-                    <Text style={styles.scrollText}>{quest.reward}!!</Text>
+                    <Text style={styles.scrollText1}>Quest Complete!</Text>
+                    <Text style={styles.scrollText2}>You have earned... </Text>
+                    <Text style={styles.scrollReward}>{quest.reward}!!</Text>
                   </Animated.View>
                 </ImageBackground>
               </Animated.View>
@@ -375,6 +445,7 @@ const Quest = ({ navigation }) => {
                 </View>
                 <Players players = { players } pressPlayerIconHandler={pressPlayerIconHandler}/>
               </View>
+            </ImageBackground>
         </ImageBackground>
       </View>
       <ScrollView>
@@ -406,6 +477,83 @@ const styles = StyleSheet.create({
     width: '96%',
     maxHeight: '42%',
   },
+  leaderBoardsIconContainer: {
+    width: 40,
+    height: 40,
+    // borderRadius: 15,
+    alignSelf: 'flex-end',
+    margin: 12
+  },
+  leaderBoardsIcon: {
+    height: 40,
+    width: 40,
+    alignSelf: 'center',
+  },
+  leaderBoardsContent: {
+    height: '100%',
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  leaderboardsTitle: {
+    fontFamily: 'Menlo',
+    fontSize: 30,
+    fontWeight: 'bold',
+    alignSelf: 'center',
+    marginTop: '20%'
+  },
+  divider: {
+    borderBottomWidth: 2,
+    width: '90%',
+    alignSelf: 'center'
+  },
+  leaderBoardsList: {
+    alignItems: 'center'
+  },
+  playerCard: {
+    borderWidth: 1,
+    alignItems: 'center',
+    flexDirection: 'row',
+    width: '90%',
+    borderRadius: 10,
+    marginTop: '5%',
+    justifyContent: 'space-between',
+    backgroundColor: 'rgba(255, 255, 255, 0.6)',
+  },
+  playerData: {
+    flex: 2
+  },
+  leaderbordPortrait: {
+    width: 100,
+    height: 100,
+    borderRadius: 5,
+    margin: 10,
+    marginLeft: 10,
+    marginRight: 10,
+    borderWidth: 1,
+  },
+  closeBtn: {
+    alignSelf: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    borderRadius: 4,
+    elevation: 3,
+    backgroundColor: 'black',
+    width: '70%',
+    marginBottom: '10%',
+    marginTop: '10%'
+  },
+  closeBtnText: {
+    fontSize: 16,
+    lineHeight: 21,
+    fontWeight: 'bold',
+    letterSpacing: 0.25,
+    color: 'white',
+    fontFamily: 'Menlo'
+  },
   treasureIcon: {
     alignSelf: 'center',
     height: '80%',
@@ -427,14 +575,27 @@ const styles = StyleSheet.create({
     alignItems:'center',
     height: '100%',
     width: '100%',
-    // justifyContent: 'center'
   },
-  scrollText: {
-    marginTop: '5%',
-    width: 140,
+  scrollText1: {
+    marginTop: '15%',
     color: 'rgba(145, 10, 10, 0.8)',
     fontWeight: 'bold',
-    fontFamily: 'menlo'
+    fontFamily: 'HoeflerText-Italic',
+    fontSize: 18
+  },
+  scrollText2: {
+    marginTop: '15%',
+    color: 'rgba(145, 10, 10, 0.8)',
+    fontWeight: 'bold',
+    fontFamily: 'HoeflerText-Italic',
+  },
+  scrollReward: {
+    marginTop: '15%',
+    color: 'rgba(145, 10, 10, 0.8)',
+    fontWeight: 'bold',
+    fontFamily: 'HoeflerText-Italic',
+    fontSize: 18,
+    maxWidth: '80%'
   },
   stage: {
     maxHeight: '100%'
@@ -450,14 +611,14 @@ const styles = StyleSheet.create({
     width: 200,
     backgroundColor: 'white',
     opacity: 0.7,
-    borderRadius: 10,
+    borderRadius: 5,
     margin: 5,
     padding: 5
   },
   playersBackground: {
     backgroundColor: 'white',
     opacity: 0.7,
-    borderRadius: 10,
+    borderRadius: 5,
     // borderWidth: 1,
     position: 'absolute',
     height: '100%',

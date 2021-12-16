@@ -16,8 +16,17 @@ export const images = {
   grassTowerBackground: require('./images/grass-tower-background.png'),
   grassTowerBackground2: require('./images/grass-tower-background2.png'),
   chamberBackground: require('./images/chamber-background.png'),
+  swampStage: require('./images/swamp-stage.png'),
+  grassStage: require('./images/grass-stage.png'),
+  lavaStage: require('./images/lava-stage.png'),
   woodTiles: require('./images/woodTiles.png'),
   treasure: require('./images/treasure3.png'),
+  forestOverlay: require('./images/forest-overlay2.png'),
+  caveOverlay: require('./images/cave-overlay2.png'),
+  leaderBoardsIcon: require('./images/leaderBoardsIcon.png'),
+  towerBackground: require('./images/tower-background.png'),
+  crown: require('./images/crown.png'),
+  swordIcon: require('./images/sword-icon.png')
 }
 
 export const gifs = {

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { View, Animated, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Animated, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faFeatherAlt } from '@fortawesome/free-solid-svg-icons'
+import { faFeatherAlt } from '@fortawesome/free-solid-svg-icons';
+import {images} from '../images';
 
 const Task = ({ task, completeTaskHandler }) => {
 
@@ -16,14 +17,11 @@ const Task = ({ task, completeTaskHandler }) => {
         <Text style = {styles.taskTitle}>{task.title}</Text>
       </View>
       {completeTaskHandler &&
-        <View style = {styles.complete}>
-          <TouchableOpacity onPress = {completeTaskHandler.bind(null, task)}>
+        <TouchableOpacity style = {styles.complete} onPress = {completeTaskHandler.bind(null, task)}>
           {/* <FontAwesomeIcon icon={faFeatherAlt} style = {styles.attackIcon}/> */}
-            <Text style = {styles.completeButton}>
-              Complete
-            </Text>
-          </TouchableOpacity>
-        </View>
+          <Image source={images.swordIcon}style={styles.attackIcon}></Image>
+            {/* <Text style = {styles.completeButton}>Complete</Text> */}
+        </TouchableOpacity>
       }
     </View>
   )
@@ -72,17 +70,22 @@ const styles = StyleSheet.create({
   complete: {
     borderWidth: 1,
     borderRadius: 5,
-    padding: 5,
     flexDirection: 'row',
-    width: 80,
+    width: '80%',
     backgroundColor: 'black',
     justifyContent: 'center',
-    marginBottom: 3,
-    marginRight: 3,
+    marginRight: 5,
     flex: 1
   },
   completeButton: {
-    color: 'white'
+    color: 'white',
+    fontFamily: 'menlo',
+    fontSize: 12,
+    padding: 5,
+  },
+  attackIcon: {
+    height: 40,
+    width: 30,
   }
 })
 

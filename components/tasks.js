@@ -9,15 +9,15 @@ const Tasks = ({ tasks, completeTaskHandler, createTaskHandler }) => {
     <View style = {styles.tasks}>
       <View style = {styles.header}>
         <Text style = {styles.tasksTitle}>Tasks:</Text>
-        <TouchableOpacity style = {styles.addButton} onPress = {createTaskHandler}>
-          <FontAwesomeIcon icon={faFeatherAlt} style = {styles.addIcon}/>
-          <Text style = {styles.tasksHeader}>|Add</Text>
-        </TouchableOpacity>
       </View>
       <View style = {styles.divider}></View>
       {tasks.map( item => {
         return <Task task = {item} completeTaskHandler = {completeTaskHandler} key = {item.id} />
       })}
+       <TouchableOpacity style = {styles.addButton} onPress = {createTaskHandler}>
+          {/* <FontAwesomeIcon icon={faFeatherAlt} style = {styles.addIcon}/> */}
+          <Text style = {styles.tasksHeader}>Add</Text>
+        </TouchableOpacity>
     </View>
   );
 };
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
   },
   tasksHeader: {
     fontFamily: 'Menlo',
-    // fontWeight: 'bold',
+    fontWeight: 'bold',
     // marginLeft: '5%',
     fontSize: 15,
     color: 'white'
@@ -54,13 +54,25 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width: 70,
     backgroundColor: 'black',
-    justifyContent: 'center',
-    marginBottom: 3
-  },
-  addIcon: {
     alignSelf: 'center',
-    color: 'white'
-  }
+    justifyContent: 'center',
+    marginTop: 10
+  },
+  // addButton: {
+  //   borderWidth: 1,
+  //   borderRadius: 15,
+  //   padding: 10,
+  //   flexDirection: 'row',
+  //   // width: 70,
+  //   backgroundColor: 'black',
+  //   alignSelf: 'center',
+  //   justifyContent: 'center',
+  //   marginTop: 10
+  // },
+  // addIcon: {
+  //   alignSelf: 'center',
+  //   color: 'white'
+  // }
 })
 
 export default Tasks;
