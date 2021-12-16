@@ -72,16 +72,16 @@ const NewQuest = ({ navigation }) => {
     },
     {
       id: 3,
-      name: 'iceCastleOverlay',
+      name: 'hillsOverlay',
     },
     {
       id: 4,
       name: 'lightForestOverlay',
     },
-    // {
-    //   id: 5,
-    //   name: 'skyOverlay',
-    // },
+    {
+      id: 5,
+      name: 'skyOverlay',
+    },
     {
       id: 6,
       name: 'desertOverlay',
@@ -287,7 +287,6 @@ const NewQuest = ({ navigation }) => {
             setOpen={setOpen}
             setValue={setSelectedPlayers}
             setItems={setItems}
-            // listmode="SCROLLVIEW"
             searchable = {true}
             multiple={true}
             placeholder="Add Players"

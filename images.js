@@ -17,7 +17,6 @@ export const images = {
   grassTowerBackground: require('./images/grass-tower-background.png'),
   grassTowerBackground2: require('./images/grass-tower-background2.png'),
   grassTowerBackground3: require('./images/grass-tower-background3.png'),
-  chamberBackground: require('./images/chamber-background.png'),
   swampStage: require('./images/swamp-stage.png'),
   grassStage: require('./images/grass-stage.png'),
   lavaStage: require('./images/lava-stage.png'),

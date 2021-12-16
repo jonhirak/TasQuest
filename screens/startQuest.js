@@ -12,6 +12,7 @@ const StartQuest = ({ navigation }) => {
       title: 'FEC',
       boss:`slime`,
       stage: 'patternedStage',
+      overlay: 'caveOverlay',
       health: 2000,
       currentHealth: 2000,
       reward: 'Pizza party',
@@ -65,7 +66,8 @@ const StartQuest = ({ navigation }) => {
       id: 2,
       title: 'SDC',
       boss:'dragon',
-      stage: 'blueSkyStage',
+      stage: 'grassStage',
+      overlay: 'lightForestOverlay',
       health: 10500,
       currentHealth: 1600,
       reward: 'Movie night',
@@ -109,55 +111,55 @@ const StartQuest = ({ navigation }) => {
           quests: [],
         }
       ]},
-    {
-      id: 3,
-      title: 'Blue Ocean',
-      boss:'alien',
-      stage: 'rocksStage',
-      health: 7400,
-      currentHealth: 2500,
-      reward: 'Video games!',
-      tasks: [
-        {
-          id: 1,
-          title: 'task1',
-          size: 'XL'
-        },
-        {
-          id: 2,
-          title: 'task2',
-          size: 'XL',
-        },
-        {
-          id: 3,
-          title: 'task3',
-          size: 'L',
-        }
-      ],
-      players: [
-        {
-          id: 1,
-          name: 'mediocrekick',
-          level: 58,
-          photo: 'fake-person-1.jpg',
-          quests: [],
-        },
-        {
-          id: 2,
-          name: 'sunnyking',
-          level: 29,
-          photo: 'fake-person-2.jpg',
-          quests: [],
-        },
-        {
-          id: 3,
-          name: 'toolpanda',
-          level: 62,
-          photo: 'fake-person-3.jpg',
-          quests: [],
-        }
-      ]
-    }
+    // {
+    //   id: 3,
+    //   title: 'Blue Ocean',
+    //   boss:'alien',
+    //   stage: 'rocksStage',
+    //   health: 7400,
+    //   currentHealth: 2500,
+    //   reward: 'Video games!',
+    //   tasks: [
+    //     {
+    //       id: 1,
+    //       title: 'task1',
+    //       size: 'XL'
+    //     },
+    //     {
+    //       id: 2,
+    //       title: 'task2',
+    //       size: 'XL',
+    //     },
+    //     {
+    //       id: 3,
+    //       title: 'task3',
+    //       size: 'L',
+    //     }
+    //   ],
+    //   players: [
+    //     {
+    //       id: 1,
+    //       name: 'mediocrekick',
+    //       level: 58,
+    //       photo: 'fake-person-1.jpg',
+    //       quests: [],
+    //     },
+    //     {
+    //       id: 2,
+    //       name: 'sunnyking',
+    //       level: 29,
+    //       photo: 'fake-person-2.jpg',
+    //       quests: [],
+    //     },
+    //     {
+    //       id: 3,
+    //       name: 'toolpanda',
+    //       level: 62,
+    //       photo: 'fake-person-3.jpg',
+    //       quests: [],
+    //     }
+    //   ]
+    // }
   ]);
 
 
