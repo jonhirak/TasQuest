@@ -12,12 +12,17 @@ const Log = ({ log }) => {
 
 const styles = StyleSheet.create({
   logContainer: {
+    // borderWidth: 1,
+    padding: 10,
+    backgroundColor: 'rgba(255, 255, 255, 0.6)',
     borderWidth: 1,
-    padding: 10
+    borderRadius: 10,
+    marginTop: 10,
   },
   logTime: {
     fontFamily: 'Menlo',
     fontSize: 16,
+    marginBottom: 10
   },
   logText: {
     fontFamily: 'Menlo',

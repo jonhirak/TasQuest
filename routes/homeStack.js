@@ -10,16 +10,23 @@ const screens = {
   //   screen: Home
   // },
   StartQuest: {
-    screen: StartQuest
+    screen: StartQuest,
   },
   NewQuest: {
-    screen: NewQuest
+    screen: NewQuest,
   },
   Quest: {
     screen: Quest
   }
 }
 
-const HomeStack = createStackNavigator(screens);
+const HomeStack = createStackNavigator(screens, {
+  defaultNavigationOptions: {
+    title: 'TasQuest',
+      headerStyle: {
+        backgroundColor: '#eee',
+      }
+  }
+});
 
 export default createAppContainer(HomeStack);
