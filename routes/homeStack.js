@@ -11,12 +11,6 @@ const screens = {
   // },
   StartQuest: {
     screen: StartQuest,
-    // navigationOptions: {
-    //   title: 'TasQuest',
-    //   headerStyle: {
-    //     backgroundColor: '#eee'
-    //   }
-    // }
   },
   NewQuest: {
     screen: NewQuest,
