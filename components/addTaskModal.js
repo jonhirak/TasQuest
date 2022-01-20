@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, Pressable, TextInput, StyleSheet, Image, TouchableOpacity, Modal, ImageBackground } from 'react-native';
-import { randomId } from '../randomId.js';
+import { View, Text, Pressable, TextInput, StyleSheet, TouchableOpacity, Modal, ImageBackground } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
@@ -98,16 +97,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   modalHeaderText: {
-    // alignSelf: 'center',
     marginLeft: '3%',
     fontFamily: 'Menlo',
     fontWeight: 'bold',
     fontSize: 20,
     color: 'white'
-  },
-  close: {
-    // height: '100%',
-    // width: '100%'
   },
   closeIcon: {
     height: '100%',
@@ -119,7 +113,6 @@ const styles = StyleSheet.create({
   modalContent:{
     marginTop: 'auto',
     height: '50%',
-    // backgroundColor: 'rgba(255, 255, 255, 0.6)',
   },
   filter: {
     backgroundColor: 'rgba(255, 255, 255, 0.3)',
