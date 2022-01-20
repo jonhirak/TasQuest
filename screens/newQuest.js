@@ -202,10 +202,6 @@ const NewQuest = ({ navigation }) => {
     setSelectedBoss(boss)
   };
 
-  // const formValidator = () => {
-
-  // };
-
   const renderItem = ({item, index}) => {
     return (
       <TouchableOpacity
@@ -214,7 +210,6 @@ const NewQuest = ({ navigation }) => {
                 carouselRef.current.scrollToIndex(index);
                 setSelectedStage(item);
               }}>
-        {/* Data Here */}
         <View style = {styles.carouselItem}>
         {item.id === selectedStage.id?
           <Image
@@ -240,7 +235,6 @@ const NewQuest = ({ navigation }) => {
                 overlayCarouselRef.current.scrollToIndex(index);
                 setSelectedOverlay(item);
               }}>
-        {/* Data Here */}
         <View style = {styles.carouselItem}>
         {item.id === selectedOverlay.id?
           <Image
@@ -266,7 +260,6 @@ const NewQuest = ({ navigation }) => {
 
           <Text style = {styles.inputTitle}>Quest Name:</Text>
           <TextInput
-            // placeholder="Enter Quest Name"
             style = {styles.input}
             onChangeText={(text) => {
               questForm.title = text;
@@ -292,7 +285,6 @@ const NewQuest = ({ navigation }) => {
             }}
             style = {styles.addPlayers}
             containerStyle={{
-              // alignSelf: 'center',
               width: '50%',
               marginTop: '5%',
               marginLeft: '5%'
@@ -383,7 +375,6 @@ const styles = StyleSheet.create({
     height: '3%',
     marginLeft: '5%',
     backgroundColor: 'white'
-    // alignSelf: 'center'
   },
   bossesHeader: {
     fontFamily: 'Menlo',
