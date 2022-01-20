@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, Animated, Text, StyleSheet, TouchableOpacity, ImageBackground, ScrollView } from 'react-native';
+import React from 'react';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import Log from './log';
 
 const Logs = ({ logs }) => {
@@ -8,7 +8,6 @@ const Logs = ({ logs }) => {
       <Text style = {styles.logsHeader}>Action Log:</Text>
       <View style = {styles.divider}></View>
       <ScrollView style = {styles.logs}>
-        {/* Add Task button here */}
         {logs.map( item => {
           return <Log log = {item} key = {item.id} />
         })}
@@ -33,7 +32,6 @@ const styles = StyleSheet.create({
   logs: {
     marginLeft: 20,
     marginRight: 20,
-    // borderWidth: 1,
     maxHeight: 500
   },
   divider: {
