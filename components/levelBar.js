@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { View, Animated, Text, StyleSheet } from 'react-native';
+import React from 'react';
+import { View } from 'react-native';
 
-const LevelBar = ({ currentHealth, health, height, healthPercent }) => {
+const LevelBar = ({ height, healthPercent }) => {
 
   return (
     <>
@@ -23,16 +23,6 @@ const LevelBar = ({ currentHealth, health, height, healthPercent }) => {
           top: 0,
         }}/>
       </View>
-      {/* <Text
-        style={{
-          fontFamily: 'Menlo',
-          fontSize: 12,
-          fontWeight: '900',
-          marginTop: 2,
-          alignSelf: 'center'
-        }}>
-          {currentHealth}/{health}
-      </Text> */}
     </>
   )
 };
