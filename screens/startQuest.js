@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { View, Text, Button, FlatList, StyleSheet, TouchableOpacity, Pressable, ImageBackground } from 'react-native';
+import { View, Text, FlatList, StyleSheet, TouchableOpacity, ImageBackground } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faCaretRight } from '@fortawesome/free-solid-svg-icons';
 import { images } from '../images';
-// import Quest from '../components/quest';
 
 const StartQuest = ({ navigation }) => {
   const [ quests, setQuests ] = useState([
@@ -111,55 +110,6 @@ const StartQuest = ({ navigation }) => {
           quests: [],
         }
       ]},
-    // {
-    //   id: 3,
-    //   title: 'Blue Ocean',
-    //   boss:'alien',
-    //   stage: 'rocksStage',
-    //   health: 7400,
-    //   currentHealth: 2500,
-    //   reward: 'Video games!',
-    //   tasks: [
-    //     {
-    //       id: 1,
-    //       title: 'task1',
-    //       size: 'XL'
-    //     },
-    //     {
-    //       id: 2,
-    //       title: 'task2',
-    //       size: 'XL',
-    //     },
-    //     {
-    //       id: 3,
-    //       title: 'task3',
-    //       size: 'L',
-    //     }
-    //   ],
-    //   players: [
-    //     {
-    //       id: 1,
-    //       name: 'mediocrekick',
-    //       level: 58,
-    //       photo: 'fake-person-1.jpg',
-    //       quests: [],
-    //     },
-    //     {
-    //       id: 2,
-    //       name: 'sunnyking',
-    //       level: 29,
-    //       photo: 'fake-person-2.jpg',
-    //       quests: [],
-    //     },
-    //     {
-    //       id: 3,
-    //       name: 'toolpanda',
-    //       level: 62,
-    //       photo: 'fake-person-3.jpg',
-    //       quests: [],
-    //     }
-    //   ]
-    // }
   ]);
 
 
@@ -173,25 +123,6 @@ const StartQuest = ({ navigation }) => {
   const pressQuestHandler = (item) => {
     navigation.navigate('Quest', { item });
   };
-
-  // const completeTaskHandler = (taskSize, quest_id) => {
-  //   const conversion = {
-  //     S: 10,
-  //     M: 25,
-  //     L: 50,
-  //     XL: 100,
-  //   }
-
-  //   let questsCopy = quests.slice();
-
-  //   questsCopy.forEach( quest => {
-  //     if (quest.id === quest_id) {
-  //       quest.currentHealth = quest.currentHealth - conversion[taskSize]
-  //     }
-  //   })
-
-  //   setQuests(questsCopy);
-  // };
 
   return (
     <ImageBackground
@@ -250,13 +181,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     justifyContent: 'space-between',
     backgroundColor: 'rgba(0,0,0,0.6)',
-    // shadowColor: 'rgba(0,0,0,1)',
-    // shadowOffset: {
-    //   width: 2,
-    //   height: ,
-    // },
-    // shadowOpacity: 1,
-    // shadowRadius: 5
+
   },
   questName: {
     fontFamily: 'Menlo',

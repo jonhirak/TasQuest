@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, Modal, Image, StyleSheet, ScrollView, ImageBackground, Button, Animated, TouchableOpacity } from 'react-native';
 import HealthBar from '../components/healthBar';
 import Tasks from '../components/tasks'
@@ -67,7 +67,6 @@ const Quest = ({ navigation }) => {
   const [ heightValue, ] = useState(new Animated.Value(60));
   const [ widthValue, ] = useState(new Animated.Value(60));
   const [ victoryHeightValue, ] = useState(new Animated.Value(0));
-  // const [ healthPercent, ] = useState(new Animated.Value(100));
 
   let treasureClicked = false;
 
@@ -169,14 +168,6 @@ const Quest = ({ navigation }) => {
     }).start()
   };
 
-  // const animateHealthBar = () => {
-  //   Animated.timing(healthPercent, {
-  //     toValue: 50,
-  //     duration: 2000,
-  //     useNativeDriver: false
-  //   }).start()
-  // };
-
   const completeTaskHandler = (task) => {
 
     function getFormattedDate(){
@@ -190,8 +181,6 @@ const Quest = ({ navigation }) => {
     let copy = quest;
 
     copy.currentHealth = copy.currentHealth - conversion[task.size]
-
-    // animateHealthBar();
 
     if (copy.currentHealth < 1) {
       fadeOutBoss();
@@ -461,13 +450,11 @@ const Quest = ({ navigation }) => {
 const styles = StyleSheet.create({
   view: {
     flex: 1,
-    // backgroundColor: "rgb(180, 216, 74)",
     width: '100%',
   },
   logContainer: {
     width: '100%',
     height: '66%',
-    // justifyContent: 'center',
     alignItems: 'center'
   },
   screen: {
@@ -480,7 +467,6 @@ const styles = StyleSheet.create({
   leaderBoardsIconContainer: {
     width: 40,
     height: 40,
-    // borderRadius: 15,
     alignSelf: 'flex-end',
     margin: 12
   },
@@ -626,7 +612,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     opacity: 0.7,
     borderRadius: 5,
-    // borderWidth: 1,
     position: 'absolute',
     height: '100%',
     width: '70%',
@@ -644,7 +629,6 @@ const styles = StyleSheet.create({
   portrait: {
     width: 150,
     height: 150,
-    // borderRadius: 1,
     marginLeft: 10,
     marginRight: 10,
     alignSelf: 'center'

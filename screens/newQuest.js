@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, Button, TextInput, StyleSheet, Image, TouchableOpacity, Pressable, Dimensions, ImageBackground, ScrollView } from 'react-native';
+import { View, Text, TextInput, StyleSheet, Image, TouchableOpacity, Dimensions, ImageBackground, ScrollView } from 'react-native';
 import Tasks from '../components/tasks.js';
 import AddTaskModal from '../components/addTaskModal.js';
 import DropDownPicker from 'react-native-dropdown-picker';
@@ -94,10 +94,6 @@ const NewQuest = ({ navigation }) => {
       id: 8,
       name: 'iceCaveOverlay',
     },
-    // {
-    //   id: 9,
-    //   name: 'crystalOverlay',
-    // }
   ]);
 
   const [ bosses, setBosses ] = useState([
@@ -124,7 +120,6 @@ const NewQuest = ({ navigation }) => {
   const [ selectedPlayers, setSelectedPlayers ] = useState([]);
 
   const [open, setOpen] = useState(false);
-  // const [value, setValue] = useState(null);
   const [items, setItems] = useState([
     {label: 'mediocrekick', value: {
       id: 1,
@@ -166,7 +161,6 @@ const NewQuest = ({ navigation }) => {
   };
 
   const createQuestHandler = () => {
-    // console.log('SELECTED PLAYERS ' + JSON.stringify(selectedPlayers))
     let newQuest = {...questForm};
     newQuest.id = randomId();
     newQuest.boss = selectedBoss.name;
@@ -208,10 +202,6 @@ const NewQuest = ({ navigation }) => {
     setSelectedBoss(boss)
   };
 
-  // const formValidator = () => {
-
-  // };
-
   const renderItem = ({item, index}) => {
     return (
       <TouchableOpacity
@@ -220,7 +210,6 @@ const NewQuest = ({ navigation }) => {
                 carouselRef.current.scrollToIndex(index);
                 setSelectedStage(item);
               }}>
-        {/* Data Here */}
         <View style = {styles.carouselItem}>
         {item.id === selectedStage.id?
           <Image
@@ -246,7 +235,6 @@ const NewQuest = ({ navigation }) => {
                 overlayCarouselRef.current.scrollToIndex(index);
                 setSelectedOverlay(item);
               }}>
-        {/* Data Here */}
         <View style = {styles.carouselItem}>
         {item.id === selectedOverlay.id?
           <Image
@@ -272,7 +260,6 @@ const NewQuest = ({ navigation }) => {
 
           <Text style = {styles.inputTitle}>Quest Name:</Text>
           <TextInput
-            // placeholder="Enter Quest Name"
             style = {styles.input}
             onChangeText={(text) => {
               questForm.title = text;
@@ -298,7 +285,6 @@ const NewQuest = ({ navigation }) => {
             }}
             style = {styles.addPlayers}
             containerStyle={{
-              // alignSelf: 'center',
               width: '50%',
               marginTop: '5%',
               marginLeft: '5%'
@@ -389,7 +375,6 @@ const styles = StyleSheet.create({
     height: '3%',
     marginLeft: '5%',
     backgroundColor: 'white'
-    // alignSelf: 'center'
   },
   bossesHeader: {
     fontFamily: 'Menlo',

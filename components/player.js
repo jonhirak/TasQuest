@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, Animated, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import React from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 
 const Player = ({ player, pressPlayerIconHandler }) => {
 
