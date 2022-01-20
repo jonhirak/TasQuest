@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, Animated, Text, StyleSheet } from 'react-native';
+import React from 'react';
+import { View, Text } from 'react-native';
 
 const HealthBar = ({ currentHealth, health, height, healthPercent }) => {
   const healthColor = (healthPercent) => {
