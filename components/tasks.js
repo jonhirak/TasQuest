@@ -1,8 +1,6 @@
-import React, { useState } from 'react';
-import { View, Animated, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import React from 'react';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import Task from './task';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faFeatherAlt } from '@fortawesome/free-solid-svg-icons'
 
 const Tasks = ({ tasks, completeTaskHandler, createTaskHandler }) => {
   return (
@@ -15,7 +13,6 @@ const Tasks = ({ tasks, completeTaskHandler, createTaskHandler }) => {
         return <Task task = {item} completeTaskHandler = {completeTaskHandler} key = {item.id} />
       })}
        <TouchableOpacity style = {styles.addButton} onPress = {createTaskHandler}>
-          {/* <FontAwesomeIcon icon={faFeatherAlt} style = {styles.addIcon}/> */}
           <Text style = {styles.tasksHeader}>Add</Text>
         </TouchableOpacity>
     </View>
@@ -25,7 +22,6 @@ const Tasks = ({ tasks, completeTaskHandler, createTaskHandler }) => {
 const styles = StyleSheet.create({
   tasks: {
     margin: 20,
-    // borderWidth: 1
   },
   tasksTitle: {
     fontFamily: 'Menlo',
@@ -40,7 +36,6 @@ const styles = StyleSheet.create({
   tasksHeader: {
     fontFamily: 'Menlo',
     fontWeight: 'bold',
-    // marginLeft: '5%',
     fontSize: 15,
     color: 'white'
   },
@@ -58,21 +53,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginTop: 10
   },
-  // addButton: {
-  //   borderWidth: 1,
-  //   borderRadius: 15,
-  //   padding: 10,
-  //   flexDirection: 'row',
-  //   // width: 70,
-  //   backgroundColor: 'black',
-  //   alignSelf: 'center',
-  //   justifyContent: 'center',
-  //   marginTop: 10
-  // },
-  // addIcon: {
-  //   alignSelf: 'center',
-  //   color: 'white'
-  // }
 })
 
 export default Tasks;
