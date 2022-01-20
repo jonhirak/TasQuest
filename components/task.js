@@ -1,7 +1,5 @@
-import React, { useState } from 'react';
-import { View, Animated, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faFeatherAlt } from '@fortawesome/free-solid-svg-icons';
+import React from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import {images} from '../images';
 
 const Task = ({ task, completeTaskHandler }) => {
@@ -18,9 +16,7 @@ const Task = ({ task, completeTaskHandler }) => {
       </View>
       {completeTaskHandler &&
         <TouchableOpacity style = {styles.complete} onPress = {completeTaskHandler.bind(null, task)}>
-          {/* <FontAwesomeIcon icon={faFeatherAlt} style = {styles.attackIcon}/> */}
           <Image source={images.swordIcon}style={styles.attackIcon}></Image>
-            {/* <Text style = {styles.completeButton}>Complete</Text> */}
         </TouchableOpacity>
       }
     </View>
@@ -53,7 +49,6 @@ const styles = StyleSheet.create({
   sizeContainer: {
     width: 30,
     height: '100%',
-    // borderRadius: 20,
     backgroundColor: 'black',
     padding: 5,
     justifyContent: 'center',
