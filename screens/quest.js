@@ -268,57 +268,55 @@ const Quest = ({ navigation }) => {
           style = {styles.stage}
           source = {images.grassBackground2}
       >
-        {/* <ScrollView> */}
-
-          <Modal visible={modalOpen} animationType='slide'>
-            <View style = {styles.modalContent}>
-              <Text style = {styles.name} >{selectedPlayer.name}</Text>
-              <Image style = {styles.portrait} source = {{uri: `/Users/jonhi1/Desktop/MVP/mvp/images/portraits/${selectedPlayer.photo}`}} />
-              <Text style = {styles.level} >Level {selectedPlayer.level}</Text>
-              <View style = {styles.expBar}>
-                <LevelBar currentHealth = {2025} health = {2900} height = {15} healthPercent = {70}/>
-              </View>
-              <Button onPress={()=> setModalOpen(false)} title='Close' style={styles.Close}/>
+        <Modal visible={modalOpen} animationType='slide'>
+          <View style = {styles.modalContent}>
+            <Text style = {styles.name} >{selectedPlayer.name}</Text>
+            <Image style = {styles.portrait} source = {{uri: `/Users/jonhi1/Desktop/MVP/mvp/images/portraits/${selectedPlayer.photo}`}} />
+            <Text style = {styles.level} >Level {selectedPlayer.level}</Text>
+            <View style = {styles.expBar}>
+              <LevelBar currentHealth = {2025} health = {2900} height = {15} healthPercent = {70}/>
             </View>
-          </Modal>
+            <Button onPress={()=> setModalOpen(false)} title='Close' style={styles.Close}/>
+          </View>
+        </Modal>
 
-          <Modal visible={leaderBoardsModalOpen} animationType='slide'>
-            <ImageBackground style = {styles.leaderBoardsContent} source={images.towerBackground}>
-            <View style = {styles.header}>
-              <Text style = {styles.leaderboardsTitle}>Leaderboard</Text>
-            </View>
-            <View style = {styles.divider}></View>
-            <View style={styles.leaderBoardsList}>
-              {players.map((player, i) => {
-                return (
-                  <View key={player.id} style={styles.playerCard}>
-                    <ImageBackground style = {styles.leaderbordPortrait} source = {{uri: `/Users/jonhi1/Desktop/MVP/mvp/images/portraits/${player.photo}`}}>
-                      {/* {renderAwards(i)} */}
-                    </ImageBackground>
-                    <View style={styles.playerData}>
-                      {/* <Text>{player.name}</Text> */}
-                      <Text style={styles.nameLevelText}>Lv{player.level} | {player.name}</Text>
-                      <Text style={styles.damageText}>Dmg Dealt: {player.damage}</Text>
-                    </View>
+        <Modal visible={leaderBoardsModalOpen} animationType='slide'>
+          <ImageBackground style = {styles.leaderBoardsContent} source={images.towerBackground}>
+          <View style = {styles.header}>
+            <Text style = {styles.leaderboardsTitle}>Leaderboard</Text>
+          </View>
+          <View style = {styles.divider}></View>
+          <View style={styles.leaderBoardsList}>
+            {players.map((player, i) => {
+              return (
+                <View key={player.id} style={styles.playerCard}>
+                  <ImageBackground style = {styles.leaderbordPortrait} source = {{uri: `/Users/jonhi1/Desktop/MVP/mvp/images/portraits/${player.photo}`}}>
+                    {/* {renderAwards(i)} */}
+                  </ImageBackground>
+                  <View style={styles.playerData}>
+                    {/* <Text>{player.name}</Text> */}
+                    <Text style={styles.nameLevelText}>Lv{player.level} | {player.name}</Text>
+                    <Text style={styles.damageText}>Dmg Dealt: {player.damage}</Text>
                   </View>
-                );
-              })}
-            </View>
+                </View>
+              );
+            })}
+          </View>
 
 
-              <TouchableOpacity onPress={()=> setLeaderBoardsModalOpen(false)} style={styles.closeBtn}>
-                <Text style={styles.closeBtnText}>Close</Text>
-              </TouchableOpacity>
-            </ImageBackground>
-          </Modal>
+            <TouchableOpacity onPress={()=> setLeaderBoardsModalOpen(false)} style={styles.closeBtn}>
+              <Text style={styles.closeBtnText}>Close</Text>
+            </TouchableOpacity>
+          </ImageBackground>
+        </Modal>
 
-          <AddTaskModal modalOpen = {taskModalOpen} addTaskHandler = {addTaskHandler} closeTaskModalHandler = {closeTaskModalHandler}/>
+        <AddTaskModal modalOpen = {taskModalOpen} addTaskHandler = {addTaskHandler} closeTaskModalHandler = {closeTaskModalHandler}/>
 
-          <View style = {styles.screen}>
-            <ImageBackground
-              style = {styles.stage}
-              source = {images[quest.stage]}
-            >
+        <View style = {styles.screen}>
+          <ImageBackground
+            style = {styles.stage}
+            source = {images[quest.stage]}
+          >
             <ImageBackground
             style = {styles.stage}
             source = {images[quest.overlay]}
@@ -435,12 +433,11 @@ const Quest = ({ navigation }) => {
                 <Players players = { players } pressPlayerIconHandler={pressPlayerIconHandler}/>
               </View>
             </ImageBackground>
-        </ImageBackground>
-      </View>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <Tasks tasks = {tasks} completeTaskHandler = {completeTaskHandler} createTaskHandler={createTaskHandler}/>
-        <Logs logs = {logs}/>
-
+          </ImageBackground>
+        </View>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <Tasks tasks = {tasks} completeTaskHandler = {completeTaskHandler} createTaskHandler={createTaskHandler}/>
+          <Logs logs = {logs}/>
         </ScrollView>
       </ImageBackground>
     </View>
