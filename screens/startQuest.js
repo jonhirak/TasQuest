@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, StyleSheet, TouchableOpacity, ImageBackground } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import axios from 'axios';
 import { faCaretRight } from '@fortawesome/free-solid-svg-icons';
 import { images } from '../images';
 
@@ -123,6 +124,16 @@ const StartQuest = ({ navigation }) => {
   const pressQuestHandler = (item) => {
     navigation.navigate('Quest', { item });
   };
+
+  useEffect(()=> {
+    axios.get('http://localhost:3000/quests')
+      .then((response)=> {
+        // setQuests(response.data)
+      })
+      .catch(()=> {
+        alert('ERROR!')
+      })
+  }, []);
 
   return (
     <ImageBackground
