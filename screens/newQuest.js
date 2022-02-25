@@ -336,7 +336,6 @@ const NewQuest = ({ navigation }) => {
           <Tasks tasks = {questForm.tasks} createTaskHandler = {createTaskHandler}/>
           <Text style = {styles.inputTitle}>Reward(s):</Text>
           <TextInput
-            // placeholder="Enter Complation Reward(s)"
             style = {styles.input}
             onChangeText={(text) => {
               questForm.reward = text;
